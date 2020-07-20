@@ -22,9 +22,7 @@ Rule
   * three - 3의 눈의 합
   * four - 4의 눈의 합
   * fives - 5의 눈의 합
-  * sixes - 6의 눈의 합
-  sigle 부터 sixes까지의 합이 63점 이상이면, 보너스 점수 +35점을 얻는다.
-
+  * sixes - 6의 눈의 합    /sigle 부터 sixes까지의 합이 63점 이상이면, 보너스 점수 +35점을 얻는다.
   * chance - 모든 주사위 눈의 합
   * full house - 주사위 눈이 2개와 3개가 동일할 때의 모든 눈의 합
   * four of kind - 주사위 눈이 4개가 같을 때의 모든 눈의 합
