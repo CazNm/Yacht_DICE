@@ -38,6 +38,13 @@ public class Roll : MonoBehaviour
     }
 
     void Rolling() {
+        GM.diceStop[0] = false;
+        GM.diceStop[1] = false;
+        GM.diceStop[2] = false;
+        GM.diceStop[3] = false;
+        GM.diceStop[4] = false;
+
+
         GameObject.Find("GameManager").GetComponent<GM>().Rolldice();
     }
    

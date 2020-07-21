@@ -9,11 +9,23 @@ public class GM : MonoBehaviour
     public static int round;
     public static bool playerTurn;
     public static bool compTurn;
+    public static Vector3[] rotation = { new Vector3(40, 0, 0), new Vector3(0, -89, -39), new Vector3(0, -90, 51), new Vector3(0, -90, -127), new Vector3(0, -90, 141), new Vector3(220, 0, 0) };
+    public static bool[] diceStop = { false, false, false, false, false };
+    public static bool[] keep = { false, false, false, false, false };
 
     private static int com_roll;
 
     private static float timer;
     private static float wating_time;
+    private static bool selecting = true;
+
+    GameObject dice1;
+    GameObject dice2;
+    GameObject dice3;
+    GameObject dice4;
+    GameObject dice5;
+
+
 
 
 
@@ -23,7 +35,15 @@ public class GM : MonoBehaviour
 
     void Start()
     {
+
+        dice1 = GameObject.Find("dice1");
+        dice2 = GameObject.Find("dice2");
+        dice3 = GameObject.Find("dice3");
+        dice4 = GameObject.Find("dice4");
+        dice5 = GameObject.Find("dice5");
+
         timer = 0.0f;
+        wating_time = 2.0f;
 
         r_count = 3;
         com_roll = 0;
@@ -36,7 +56,16 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
+        {
+            timer += Time.deltaTime;
+            if (timer > wating_time) { 
+                selectPhase();
+                timer = 0;
+            }
+            
+        }
+
     }
 
     private void FixedUpdate()
@@ -66,7 +95,7 @@ public class GM : MonoBehaviour
 
         Debug.Log(com_roll);
 
-        if (com_roll > 2) {
+        if (com_roll > 0) {
             com_roll = 0;
             playerTurn = true;
             r_count = 3;
@@ -82,25 +111,48 @@ public class GM : MonoBehaviour
 
         if (GM.r_count > 0)
         {
-
-            GameObject dice1 = GameObject.Find("dice1");
-            GameObject dice2 = GameObject.Find("dice2");
-            GameObject dice3 = GameObject.Find("dice3");
-            GameObject dice4 = GameObject.Find("dice4");
-            GameObject dice5 = GameObject.Find("dice5");
-
-
-            dice1.GetComponent<DiceScript>().Reroll();
-            dice2.GetComponent<DiceScript>().Reroll();
-            dice3.GetComponent<DiceScript>().Reroll();
-            dice4.GetComponent<DiceScript>().Reroll();
-            dice5.GetComponent<DiceScript>().Reroll();
+            if (!keep[0]) { 
+                dice1.GetComponent<DiceScript>().Reroll();
+                dice1.GetComponent<Rigidbody>().useGravity = true;
+            }
+            if (!keep[1]) { 
+                dice2.GetComponent<DiceScript>().Reroll();
+                dice2.GetComponent<Rigidbody>().useGravity = true;
+            }
+            if (!keep[2]) { 
+                dice3.GetComponent<DiceScript>().Reroll();
+                dice3.GetComponent<Rigidbody>().useGravity = true;
+            }
+            if (!keep[3]) { 
+                dice4.GetComponent<DiceScript>().Reroll();
+                dice4.GetComponent<Rigidbody>().useGravity = true;
+            }
+            if (!keep[4]) { 
+                dice5.GetComponent<DiceScript>().Reroll();
+                dice5.GetComponent<Rigidbody>().useGravity = true;
+            } 
 
             GM.r_count -= 1;
         }
-
-
     }
 
+    void selectPhase() {
+
+        dice1.transform.position = dice1.GetComponent<DiceScript>().resultPos;
+        dice2.transform.position = dice2.GetComponent<DiceScript>().resultPos;
+        dice3.transform.position = dice3.GetComponent<DiceScript>().resultPos;
+        dice4.transform.position = dice4.GetComponent<DiceScript>().resultPos;
+        dice5.transform.position = dice5.GetComponent<DiceScript>().resultPos;
+
+        dice1.GetComponent<Rigidbody>().useGravity = false;
+        dice2.GetComponent<Rigidbody>().useGravity = false;
+        dice3.GetComponent<Rigidbody>().useGravity = false;
+        dice4.GetComponent<Rigidbody>().useGravity = false;
+        dice5.GetComponent<Rigidbody>().useGravity = false;
+
+
+        Debug.Log("selectPhase");
+        
+    }
 
 }

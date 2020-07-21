@@ -36,6 +36,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 			//Debug.Log( "Dice" + (dice_no + 1) + "stopped");
 			int diceNo = dice_no;
 
+			GM.diceStop[diceNo] = true;
 
 			switch (col.gameObject.name)
 			{
