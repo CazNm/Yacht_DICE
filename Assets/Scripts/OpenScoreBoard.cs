@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreScript : MonoBehaviour
+public class OpenScoreBoard : MonoBehaviour
 {
     Button btn;
     RectTransform rectTransform;
-    Transform transform;
+    //Transform transform;
     bool PIn;
 
     Vector3 outside = new Vector3(-356.3f, 634.8f, 0.0f);
@@ -19,8 +19,11 @@ public class ScoreScript : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(LookPedigree);
 
-        transform = GetComponent<Transform>();
-        rectTransform = transform.GetChild(1).GetComponent<RectTransform>();
+        //transform = GetComponent<Transform>();
+        //rectTransform = transform.gameObject.GetComponent<RectTransform>();
+        GameObject sboard = new GameObject();
+        sboard = GameObject.Find("Pedigree");
+        rectTransform = sboard.GetComponent<RectTransform>();
 
         PIn = false;
     }
@@ -35,7 +38,9 @@ public class ScoreScript : MonoBehaviour
     {
         //Debug.Log("Button Clicked");
         //Debug.Log(rectTransform.position);
-        if(PIn)
+        
+
+        if (PIn)
         {
             rectTransform.position = outside;
             PIn = false;
