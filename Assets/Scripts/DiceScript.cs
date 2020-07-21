@@ -47,7 +47,6 @@ public class DiceScript : MonoBehaviour {
 
 	public void Reroll() {
 		diceVelocity = rb.velocity;
-		DiceNumberTextScript.diceNumber = 0;
 		float dirX = Random.Range(100, 500);
 		float dirY = Random.Range(100, 500);
 		float dirZ = Random.Range(100, 500);
