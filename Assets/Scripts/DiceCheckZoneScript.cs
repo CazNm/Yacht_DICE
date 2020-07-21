@@ -33,7 +33,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 
 		if (diceVel.x == 0f && diceVel.y == 0f && diceVel.z == 0f && col.gameObject.transform.parent.name == Dice)
 		{
-			Debug.Log( "Dice" + (dice_no + 1) + "stopped");
+			//Debug.Log( "Dice" + (dice_no + 1) + "stopped");
 			int diceNo = dice_no;
 
 
