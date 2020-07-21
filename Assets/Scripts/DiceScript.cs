@@ -39,7 +39,7 @@ public class DiceScript : MonoBehaviour {
 
 		if (currentPos.y < -0.5f)
         {
-			Debug.Log("out of box");
+			//Debug.Log("out of box");
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);
         }
 

@@ -17,6 +17,13 @@ public class DiceNumberTextScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		text.text = diceNumbers[0].ToString()+ " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
+
+		if (GM.playerTurn)
+		{
+			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
+		}
+		else {
+			text.text = "Computer playing\n roll remain: " + GM.r_count;
+		}
 	}
 }
