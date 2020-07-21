@@ -22,7 +22,7 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int num0 = DNum.diceNumbers[0];
-        Debug.Log(num0);
+        //int num0 = DNum.diceNumbers[0];
+       // Debug.Log(num0);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiceCheckZoneScript : MonoBehaviour {
 
@@ -37,6 +38,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 			int diceNo = dice_no;
 
 			GM.diceStop[diceNo] = true;
+			
 
 			switch (col.gameObject.name)
 			{

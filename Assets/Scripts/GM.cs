@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
@@ -59,8 +60,9 @@ public class GM : MonoBehaviour
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             timer += Time.deltaTime;
-            if (timer > wating_time) { 
+            if (timer > wating_time) {
                 selectPhase();
+                GameObject.Find("RollButton").GetComponent<Button>().interactable = true;
                 timer = 0;
             }
             
