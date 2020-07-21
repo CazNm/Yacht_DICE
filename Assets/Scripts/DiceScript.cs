@@ -12,7 +12,8 @@ public class DiceScript : MonoBehaviour {
 	private float rdirZ;
 
 	public Vector3 currentPos;
-	public static Vector3 diceVelocity;
+	public Vector3 diceVelocity;
+	public int dice_no;
 
 	// Use this for initialization
 	void Start () {
