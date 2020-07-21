@@ -7,7 +7,6 @@ public class OpenScoreBoard : MonoBehaviour
 {
     Button btn;
     RectTransform rectTransform;
-    //Transform transform;
     bool PIn;
 
     Vector3 outside = new Vector3(-356.3f, 634.8f, 0.0f);
@@ -19,8 +18,6 @@ public class OpenScoreBoard : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(LookPedigree);
 
-        //transform = GetComponent<Transform>();
-        //rectTransform = transform.gameObject.GetComponent<RectTransform>();
         GameObject sboard = new GameObject();
         sboard = GameObject.Find("Pedigree");
         rectTransform = sboard.GetComponent<RectTransform>();
@@ -36,10 +33,6 @@ public class OpenScoreBoard : MonoBehaviour
 
     void LookPedigree()
     {
-        //Debug.Log("Button Clicked");
-        //Debug.Log(rectTransform.position);
-        
-
         if (PIn)
         {
             rectTransform.position = outside;
