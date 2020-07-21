@@ -1,5 +1,7 @@
 # Yacht_DICE
-Unity SoloProject Yacht! DICE! for Mobile
+Unity Project Yacht! DICE! for Mobile
+
+개발자: CazNm(조승현) Dan()
 
 스위치에서 유행하는 얏 다이스 (일명 야추)를 모바일 버전으로 만들어보려고 시작한 플젝
 
