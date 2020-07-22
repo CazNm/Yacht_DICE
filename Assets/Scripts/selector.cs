@@ -9,6 +9,7 @@ public class selector : MonoBehaviour
     GameObject self;
     Button btn;
     RectTransform rectTransform;
+    public int dice_int;
     public Vector3 keep_position;
     public Vector3 select_position;
     public bool keep = false;
@@ -21,14 +22,17 @@ public class selector : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
 
         select_position = rectTransform.position;
-        keep_position = new Vector3(select_position.x, select_position.y + 45, 0);
+        keep_position = new Vector3(select_position.x, select_position.y + 175, 0);
 
-        Debug.Log(rectTransform);
+        //Debug.Log(rectTransform);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        GM.keep[dice_int] = keep;
+
         if (!keep)
         {
             rectTransform.position = select_position;

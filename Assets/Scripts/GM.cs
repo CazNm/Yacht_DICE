@@ -10,10 +10,11 @@ public class GM : MonoBehaviour
     public static int round;
     public static bool playerTurn;
     public static bool compTurn;
-    public static Vector3[] rotation = { new Vector3(40, 0, 0), new Vector3(0, -89, -39), new Vector3(0, -90, 51), new Vector3(0, -90, -127), new Vector3(0, -90, 141), new Vector3(220, 0, 0) };
+    public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
+    public static bool selec_phase = false;
 
     private static int com_roll;
 
@@ -58,8 +59,16 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        for (int x = 0; x < keep.Length; x++)
+        {
+            Debug.Log((x+1) + " dice" +keep[x]);
+        }        
+
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
+            selec_phase = true;
             timer += Time.deltaTime;
             if (timer > wating_time)
             {
@@ -67,15 +76,11 @@ public class GM : MonoBehaviour
                 GameObject.Find("RollButton").GetComponent<Button>().interactable = true;
                 timer = 0;
             }
-
         }
-
     }
 
     private void FixedUpdate()
     {
-
-
         if (r_count == 0)
         {
             playerTurn = false;
@@ -84,8 +89,6 @@ public class GM : MonoBehaviour
             comPlay();
         }
         //여기에 족보 기록하는거 넣어주셈 끝나면 상대턴으로 넘어감 자동으로 중간에 족보 넣는건 제외
-
-
     }
 
     void comPlay()
@@ -98,7 +101,6 @@ public class GM : MonoBehaviour
 
         Rolldice();
         com_roll += 1;
-
         Debug.Log(com_roll);
 
         if (com_roll > 0)
@@ -112,7 +114,6 @@ public class GM : MonoBehaviour
         }
     }
 
-
     public void Rolldice()
     {
 
@@ -121,26 +122,31 @@ public class GM : MonoBehaviour
             if (!keep[0])
             {
                 dice1.GetComponent<DiceScript>().Reroll();
+                diceStop[0] = false;
                 dice1.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[1])
             {
                 dice2.GetComponent<DiceScript>().Reroll();
+                diceStop[1] = false;
                 dice2.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[2])
             {
                 dice3.GetComponent<DiceScript>().Reroll();
+                diceStop[2] = false;
                 dice3.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[3])
             {
                 dice4.GetComponent<DiceScript>().Reroll();
+                diceStop[3] = false;
                 dice4.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[4])
             {
                 dice5.GetComponent<DiceScript>().Reroll();
+                diceStop[4] = false;
                 dice5.GetComponent<Rigidbody>().useGravity = true;
             }
 
@@ -150,22 +156,14 @@ public class GM : MonoBehaviour
 
     void selectPhase()
     {
-
-        dice1.transform.position = dice1.GetComponent<DiceScript>().resultPos;
-        dice2.transform.position = dice2.GetComponent<DiceScript>().resultPos;
-        dice3.transform.position = dice3.GetComponent<DiceScript>().resultPos;
-        dice4.transform.position = dice4.GetComponent<DiceScript>().resultPos;
-        dice5.transform.position = dice5.GetComponent<DiceScript>().resultPos;
-
+        
         dice1.GetComponent<Rigidbody>().useGravity = false;
         dice2.GetComponent<Rigidbody>().useGravity = false;
         dice3.GetComponent<Rigidbody>().useGravity = false;
         dice4.GetComponent<Rigidbody>().useGravity = false;
         dice5.GetComponent<Rigidbody>().useGravity = false;
 
-
-        Debug.Log("selectPhase");
-
+       // Debug.Log("selectPhase");
         avtiveSelectUI();
     }
 
@@ -180,11 +178,9 @@ public class GM : MonoBehaviour
 
         if (!state_check)
         {
-            button.GetComponent<Button>().Select();
             button.GetComponent<selector>().keep = true;
         }
         else {
-            button.GetComponent<Button>().Select();
             button.GetComponent<selector>().keep = false;
         }
         

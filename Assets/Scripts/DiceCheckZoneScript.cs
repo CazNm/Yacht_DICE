@@ -38,8 +38,6 @@ public class DiceCheckZoneScript : MonoBehaviour {
 			int diceNo = dice_no;
 
 			GM.diceStop[diceNo] = true;
-			
-
 			switch (col.gameObject.name)
 			{
 				case "Side1":

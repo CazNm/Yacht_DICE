@@ -13,11 +13,9 @@ public class Roll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BT = this.transform.GetComponent<Button>();
-        BT.onClick.AddListener(Rolling);
+       
 
         buttonText = GetComponentInChildren<Text>();
-
         buttonText.text = "Roll! (" + GM.r_count + ")";
 
     }
@@ -30,21 +28,18 @@ public class Roll : MonoBehaviour
         if (!GM.playerTurn)
         {
             Debug.Log("false");
-            BT.interactable = false;
+            GetComponent<Button>().interactable = false;
         }
-    }
+    }   
+    
+    public void Rolling() {
+        GM.selec_phase = false;
 
-    void Rolling() {
-        GM.diceStop[0] = false;
-        GM.diceStop[1] = false;
-        GM.diceStop[2] = false;
-        GM.diceStop[3] = false;
-        GM.diceStop[4] = false;
+        //Debug.Log("rolling sequence");
 
 
         GameObject.Find("GameManager").GetComponent<GM>().Rolldice();
-        GameObject.Find("Canvas").transform.Find("SelectorUI").gameObject.SetActive(false);
-        BT.interactable = false;
+        GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
+        GetComponent<Button>().interactable = false;
     }
-   
 }
