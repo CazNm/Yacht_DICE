@@ -11,6 +11,7 @@ public class DiceScript : MonoBehaviour {
 	private float rdirX;
 	private float rdirZ;
 
+	public Vector3 resultPos;
 	public Vector3 currentPos;
 	public Vector3 diceVelocity;
 	public int dice_no;
@@ -47,7 +48,9 @@ public class DiceScript : MonoBehaviour {
 	}
 
 	public void Reroll() {
+
 		diceVelocity = rb.velocity;
+
 		float dirX = Random.Range(100, 500);
 		float dirY = Random.Range(100, 500);
 		float dirZ = Random.Range(100, 500);
@@ -55,5 +58,6 @@ public class DiceScript : MonoBehaviour {
 		//transform.rotation = Quaternion.identity;
 		rb.AddForce(transform.up * 500);
 		rb.AddTorque(dirX, dirY, dirZ);
+
 	}
 }
