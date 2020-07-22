@@ -7,10 +7,10 @@ public class OpenScoreBoard : MonoBehaviour
 {
     Button btn;
     RectTransform rectTransform;
-    bool PIn;
+    public bool PIn;
 
-    Vector3 outside = new Vector3(-356.3f, 634.8f, 0.0f);
-    Vector3 inside = new Vector3(286.2f, 634.8f, 0.0f);
+    Vector3 outside = new Vector3(-9000, 0, 0);
+    //Vector3 inside = new Vector3(286.2f, 634.8f, 0.0f);
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,8 @@ public class OpenScoreBoard : MonoBehaviour
         sboard = GameObject.Find("Pedigree");
         rectTransform = sboard.GetComponent<RectTransform>();
 
+        rectTransform.anchoredPosition = new Vector3(-9000,0,0);
+
         PIn = false;
     }
 
@@ -31,16 +33,16 @@ public class OpenScoreBoard : MonoBehaviour
 
     }
 
-    void LookPedigree()
+    public void LookPedigree()
     {
         if (PIn)
         {
-            rectTransform.position = outside;
+            rectTransform.anchoredPosition = outside;
             PIn = false;
         }
         else
         {
-            rectTransform.position = inside;
+            rectTransform.anchoredPosition = Vector3.zero;
             PIn = true;
         }
     }

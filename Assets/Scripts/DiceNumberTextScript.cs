@@ -22,8 +22,8 @@ public class DiceNumberTextScript : MonoBehaviour {
 		{
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}
-		else {
-			text.text = "Computer playing\n roll remain: " + GM.r_count;
-		}
+		if (GM.start_phase) { text.text = "Your Turn!"; }
+		else if (GM.record_phase) { text.text = "Record your score"; }
+		else { text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString(); }
 	}
 }

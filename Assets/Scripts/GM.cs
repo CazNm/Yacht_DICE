@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,10 @@ public class GM : MonoBehaviour
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
+
+    public static bool start_phase = true;
     public static bool selec_phase = false;
+    public static bool record_phase = false;
 
     private static int com_roll;
 
@@ -28,13 +32,12 @@ public class GM : MonoBehaviour
     GameObject dice4;
     GameObject dice5;
 
-
-
-
+    GameObject scoreBoard;
+    Button rollButton;
+    
 
     //시스템적으로 선공 후공 결정해야됨, 일단은 사람 vs 컴으로 구성 사람이 선공인 상황을 가정
     // Start is called before the first frame update
-
 
     void Start()
     {
@@ -46,7 +49,7 @@ public class GM : MonoBehaviour
         dice5 = GameObject.Find("dice5");
 
         timer = 0.0f;
-        wating_time = 2.0f;
+        wating_time = 1f;
 
         r_count = 3;
         com_roll = 0;
@@ -54,41 +57,75 @@ public class GM : MonoBehaviour
         playerTurn = true;
         compTurn = false;
 
+        rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
+        scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-        for (int x = 0; x < keep.Length; x++)
-        {
-            Debug.Log((x+1) + " dice" +keep[x]);
-        }        
+        if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
 
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             selec_phase = true;
             timer += Time.deltaTime;
+            allKeep();
             if (timer > wating_time)
             {
-                selectPhase();
-                GameObject.Find("RollButton").GetComponent<Button>().interactable = true;
-                timer = 0;
+                if (r_count > 0) {
+                    selectPhase();
+                    timer = 0;
+                }
+                else //기록 페이즈 진입
+                {
+                    for (int x = 0; x < 5; x++) { diceStop[x] = false; keep[x] = false; }
+                    
+                    selec_phase = false;
+                    record_phase = true;
+                    scoreBoard.GetComponent<Button>().interactable = false;
+                    scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
+                    scoreBoard.GetComponent<OpenScoreBoard>().LookPedigree();
+                }
+                
             }
         }
+
+
+        // 주사위 굴리기가 끝나고 선택페이즈로 진입 선택 페이즈에서 
+        //족보 기록은 언제든지 가능 족보 기록 후 상대 턴 시작페이즈 진입
+
+        if (record_phase) { 
+        
+        }//기록 페이즈 여기서 족보 기록 종료 후 상대 시작 페이즈 진입
     }
 
     private void FixedUpdate()
     {
-        if (r_count == 0)
-        {
-            playerTurn = false;
-            compTurn = true;
-            r_count = 3;
-            comPlay();
-        }
-        //여기에 족보 기록하는거 넣어주셈 끝나면 상대턴으로 넘어감 자동으로 중간에 족보 넣는건 제외
+        //여기 항목 일단 삭제함 페이즈 별로 나눴는데 위에 주석 좀 더 자세하게 보면 좋을듯
+    }
+
+    void StartPhase() {
+
+        dice1.GetComponent<Rigidbody>().useGravity = false;
+        dice2.GetComponent<Rigidbody>().useGravity = false;
+        dice3.GetComponent<Rigidbody>().useGravity = false;
+        dice4.GetComponent<Rigidbody>().useGravity = false;
+        dice5.GetComponent<Rigidbody>().useGravity = false;
+
+        activeStartUI();
+        
+    }
+
+    void activeStartUI() {
+        GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
+
+    }
+
+    void RecordPhase() { 
+    
     }
 
     void comPlay()
@@ -111,6 +148,16 @@ public class GM : MonoBehaviour
             compTurn = false;
             GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
             CancelInvoke("compRollDice");
+        }
+    }
+
+    void allKeep() {
+        if (keep[0] && keep[1] && keep[2] && keep[3] && keep[4])
+        {
+            rollButton.interactable = false;
+        }
+        else {
+            rollButton.interactable = true;
         }
     }
 
@@ -174,14 +221,20 @@ public class GM : MonoBehaviour
 
    public void KeepSelect(GameObject button)
     {
+        Debug.Log("select logic");
         bool state_check = button.GetComponent<selector>().keep;
-
         if (!state_check)
         {
+            Debug.Log("keep!");
             button.GetComponent<selector>().keep = true;
+            button.GetComponent<Button>().interactable = false;
+            button.GetComponent<Button>().interactable = true;
         }
         else {
+            Debug.Log("Ready to roll");
             button.GetComponent<selector>().keep = false;
+            button.GetComponent<Button>().interactable = false;
+            button.GetComponent<Button>().interactable = true;
         }
         
     }

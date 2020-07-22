@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
@@ -33,13 +34,16 @@ public class Roll : MonoBehaviour
     }   
     
     public void Rolling() {
+        
         GM.selec_phase = false;
+        GM.start_phase = false;
 
         //Debug.Log("rolling sequence");
 
 
         GameObject.Find("GameManager").GetComponent<GM>().Rolldice();
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
         GetComponent<Button>().interactable = false;
     }
 }

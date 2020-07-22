@@ -47,11 +47,15 @@ public class DiceScript : MonoBehaviour {
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);
         }
 
+		if (GM.start_phase) {
+			transform.position = resultPos;
+		} //턴 시작 페이즈 주사위 위치
+
 
 		//위치 설정 코드
 		if (GM.keep[dice_no] && GM.selec_phase) {
 			diceResult = DiceNumberTextScript.diceNumbers[dice_no];
-			transform.position = new Vector3(resultPos.x, resultPos.y, 3f);
+			transform.position = new Vector3(resultPos.x, resultPos.y, 3.8f);
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
 			
 		} // 다이스가 킵이고 셀렉트 페이즈 일때
@@ -63,11 +67,11 @@ public class DiceScript : MonoBehaviour {
 			
 		}// 다이스를 킵하지 않은 상태이고 셀렉트 페이즈 일때
 
-		if (GM.keep[dice_no] && !GM.selec_phase) {
+		if ((GM.keep[dice_no] && !GM.selec_phase) || GM.record_phase) {
 			diceResult = DiceNumberTextScript.diceNumbers[dice_no];
 			transform.position = new Vector3(resultPos.x, resultPos.y, 5.5f);
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
-			//다이스를 킵한 상태이고 셀렉트 페이즈 일때.
+			//다이스를 킵한 상태이고 셀렉트 페이즈가 아닐 때 그냥 주사위 굴러갈때 킵한거임.
 		}
 
 
@@ -77,13 +81,13 @@ public class DiceScript : MonoBehaviour {
 
 		diceVelocity = rb.velocity;
 
-		float dirX = Random.Range(100, 500);
-		float dirY = Random.Range(100, 500);
-		float dirZ = Random.Range(100, 500);
+		float dirX = Random.Range(0, 500);
+		float dirY = Random.Range(0, 500);
+		float dirZ = Random.Range(0, 500);
 		transform.position = new Vector3(currentPos.x, 5, currentPos.z);
 		//transform.rotation = Quaternion.identity;
 		rb.AddForce(transform.up * 500);
-		rb.AddTorque(dirX, dirY, dirZ);
+		rb.AddTorque(new Vector3 (dirX, dirY, dirZ) );
 
 	}
 }
