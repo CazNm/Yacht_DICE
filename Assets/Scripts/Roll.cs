@@ -43,6 +43,7 @@ public class Roll : MonoBehaviour
 
 
         GameObject.Find("GameManager").GetComponent<GM>().Rolldice();
+        GameObject.Find("Canvas").transform.Find("SelectorUI").gameObject.SetActive(false);
         BT.interactable = false;
     }
    

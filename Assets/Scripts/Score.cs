@@ -60,7 +60,6 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
         for (int i = 0; i < 6; i++)
         {
             checkyacht[i] = 0;
@@ -395,9 +394,5 @@ public class Score : MonoBehaviour
         11 / 13 = Yacht! - 모든 주사위 눈이 같을 때 50점을 얻는다.
         - / 14 = Total = 총점
         */
-=======
-        //int num0 = DNum.diceNumbers[0];
-       // Debug.Log(num0);
->>>>>>> ef6c9564c264e986ac9a3b5b2ed31f6d94cbfb65
     }
 }
