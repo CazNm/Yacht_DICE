@@ -83,7 +83,7 @@ public class Score : MonoBehaviour
         else if((Dnum1 != 1 && Dnum2 != 1 && Dnum3 != 1 && Dnum4 != 1 && Dnum5 != 1) && check[0] == 0)
         {
             singlesum = 0;
-            sboard.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = singlesum.ToString();
         }
         if ((Dnum1 == 2 || Dnum2 == 2 || Dnum3 == 2 || Dnum4 == 2 || Dnum5 == 2) && check[1] == 0)
         {
@@ -98,7 +98,7 @@ public class Score : MonoBehaviour
         else if ((Dnum1 != 2 && Dnum2 != 2 && Dnum3 != 2 && Dnum4 != 2 && Dnum5 != 2) && check[1] == 0)
         {
             doublesum = 0;
-            sboard.transform.GetChild(1).GetChild(1).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(1).GetComponent<Text>().text = doublesum.ToString();
         }
         if ((Dnum1 == 3 || Dnum2 == 3 || Dnum3 == 3 || Dnum4 == 3 || Dnum5 == 3) && check[2] == 0)
         {
@@ -113,7 +113,7 @@ public class Score : MonoBehaviour
         else if ((Dnum1 != 3 && Dnum2 != 3 && Dnum3 != 3 && Dnum4 != 3 && Dnum5 != 3) && check[2] == 0)
         {
             threesum = 0;
-            sboard.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = threesum.ToString();
         }
         if ((Dnum1 == 4 || Dnum2 == 4 || Dnum3 == 4 || Dnum4 == 4 || Dnum5 == 4) && check[3] == 0)
         {
@@ -128,7 +128,7 @@ public class Score : MonoBehaviour
         else if ((Dnum1 != 4 && Dnum2 != 4 && Dnum3 != 4 && Dnum4 != 4 && Dnum5 != 4) && check[3] == 0)
         {
             foursum = 0;
-            sboard.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = foursum.ToString();
         }
         if ((Dnum1 == 5 || Dnum2 == 5 || Dnum3 == 5 || Dnum4 == 5 || Dnum5 == 5) && check[4] == 0)
         {
@@ -143,7 +143,7 @@ public class Score : MonoBehaviour
         else if ((Dnum1 != 5 && Dnum2 != 5 && Dnum3 != 5 && Dnum4 != 5 && Dnum5 != 5) && check[4] == 0)
         {
             fivessum = 0;
-            sboard.transform.GetChild(1).GetChild(4).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(4).GetComponent<Text>().text = fivessum.ToString();
         }
         if ((Dnum1 == 6 || Dnum2 == 6 || Dnum3 == 6 || Dnum4 == 6 || Dnum5 == 6) && check[5] == 0)
         {
@@ -158,7 +158,7 @@ public class Score : MonoBehaviour
         else if ((Dnum1 != 6 && Dnum2 != 6 && Dnum3 != 6 && Dnum4 != 6 && Dnum5 != 6) && check[5] == 0)
         {
             sixessum = 0;
-            sboard.transform.GetChild(1).GetChild(5).GetComponent<Text>().text = "";
+            sboard.transform.GetChild(1).GetChild(5).GetComponent<Text>().text = sixessum.ToString();
         }
         for(int i=0; i<6; i++)
         {
@@ -190,18 +190,22 @@ public class Score : MonoBehaviour
         }
         if (check[7] == 0)
         {
-            int checkfh = 0;
+            int checkfh1 = 0;
+            int checkfh2 = 0;
+            Debug.Log("Default : " + checkfh1.ToString() + ", " + checkfh2.ToString());
             for (int i = 0; i < 6; i++)
             {
-                if (checkyacht[i] == 2)
+                if (checkyacht[i] == 2 && checkfh1 != 0)
                 {
-                    checkfh += 1;
+                    checkfh1 = 1;
+                    Debug.Log("check1");
                 }
-                if (checkyacht[i] == 3)
+                if (checkyacht[i] == 3 && checkfh2 != 0)
                 {
-                    checkfh += 1;
+                    checkfh2 = 1;
+                    Debug.Log("check2");
                 }
-                if (checkfh == 2)
+                if (checkfh1+checkfh2 == 2)
                 {
                     fullhouse = Dnum1 + Dnum2 + Dnum3 + Dnum4 + Dnum5;
                     sboard.transform.GetChild(1).GetChild(9).GetComponent<Text>().text = fullhouse.ToString();
@@ -210,15 +214,16 @@ public class Score : MonoBehaviour
                 else
                 {
                     fullhouse = 0;
-                    sboard.transform.GetChild(1).GetChild(9).GetComponent<Text>().text = "";
+                    sboard.transform.GetChild(1).GetChild(9).GetComponent<Text>().text = fullhouse.ToString();
                 }
             }
+            Debug.Log("result : " + checkfh1.ToString() + ", " + checkfh2.ToString());
         }
         if (check[8] == 0)
         {
             for (int i = 0; i < 6; i++)
             {
-                if (checkyacht[i] == 4)
+                if (checkyacht[i] >= 4)
                 {
                     fourofkind = Dnum1 + Dnum2 + Dnum3 + Dnum4 + Dnum5;
                     sboard.transform.GetChild(1).GetChild(10).GetComponent<Text>().text = fourofkind.ToString();
@@ -227,8 +232,7 @@ public class Score : MonoBehaviour
                 else
                 {
                     fourofkind = 0;
-                    sboard.transform.GetChild(1).GetChild(10).GetComponent<Text>().text = "";
-                    break;
+                    sboard.transform.GetChild(1).GetChild(10).GetComponent<Text>().text = fourofkind.ToString();
                 }
             }
         }
@@ -292,7 +296,7 @@ public class Score : MonoBehaviour
             else
             {
                 smallstraight = 0;
-                sboard.transform.GetChild(1).GetChild(11).GetComponent<Text>().text = "";
+                sboard.transform.GetChild(1).GetChild(11).GetComponent<Text>().text = smallstraight.ToString();
             }
         }
         if (check[10] == 0)
@@ -339,7 +343,7 @@ public class Score : MonoBehaviour
             else
             {
                 largestraight = 0;
-                sboard.transform.GetChild(1).GetChild(12).GetComponent<Text>().text = "";
+                sboard.transform.GetChild(1).GetChild(12).GetComponent<Text>().text = largestraight.ToString();
             }
         }
         if (check[11] == 0)
@@ -354,8 +358,8 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    sboard.transform.GetChild(1).GetChild(13).GetComponent<Text>().text = "";
-                    break;
+                    yacht = 0;
+                    sboard.transform.GetChild(1).GetChild(13).GetComponent<Text>().text = yacht.ToString();
                 }
             }
         }

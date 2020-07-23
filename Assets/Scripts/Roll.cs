@@ -28,7 +28,7 @@ public class Roll : MonoBehaviour
 
         if (!GM.playerTurn)
         {
-            Debug.Log("false");
+            //Debug.Log("false");
             GetComponent<Button>().interactable = false;
         }
     }   
