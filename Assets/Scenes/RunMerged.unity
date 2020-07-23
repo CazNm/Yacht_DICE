@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 29755883}
   - component: {fileID: 29755882}
   - component: {fileID: 29755884}
+  - component: {fileID: 29755885}
   m_Layer: 5
   m_Name: YFour
   m_TagString: Untagged
@@ -226,7 +227,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -286,7 +287,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 29755882}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 29755885}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 29755880}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &29755885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29755880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 3
 --- !u!1 &41277134
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +372,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -377,6 +402,7 @@ GameObject:
   - component: {fileID: 41826268}
   - component: {fileID: 41826267}
   - component: {fileID: 41826269}
+  - component: {fileID: 41826270}
   m_Layer: 5
   m_Name: YDouble
   m_TagString: Untagged
@@ -426,7 +452,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -486,7 +512,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 41826267}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 41826270}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 41826265}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &41826270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41826265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 1
 --- !u!1 &59301943
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +549,7 @@ GameObject:
   - component: {fileID: 59301946}
   - component: {fileID: 59301945}
   - component: {fileID: 59301947}
+  - component: {fileID: 59301948}
   m_Layer: 5
   m_Name: YFullhouse
   m_TagString: Untagged
@@ -548,7 +599,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -608,7 +659,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 59301945}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 59301948}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 59301943}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &59301948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59301943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 7
 --- !u!1 &70164913
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +696,7 @@ GameObject:
   - component: {fileID: 70164916}
   - component: {fileID: 70164915}
   - component: {fileID: 70164917}
+  - component: {fileID: 70164918}
   m_Layer: 5
   m_Name: YYacht
   m_TagString: Untagged
@@ -670,7 +746,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -730,7 +806,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 70164915}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 70164918}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 70164913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &70164918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70164913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 11
 --- !u!1 &100088022
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +843,7 @@ GameObject:
   - component: {fileID: 100088025}
   - component: {fileID: 100088024}
   - component: {fileID: 100088026}
+  - component: {fileID: 100088027}
   m_Layer: 5
   m_Name: YSmallstraight
   m_TagString: Untagged
@@ -792,7 +893,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -852,7 +953,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 100088024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 100088027}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 100088022}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &100088027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100088022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 9
 --- !u!1 &107047313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1160,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -1065,6 +1190,7 @@ GameObject:
   - component: {fileID: 170146515}
   - component: {fileID: 170146514}
   - component: {fileID: 170146516}
+  - component: {fileID: 170146517}
   m_Layer: 5
   m_Name: YChane
   m_TagString: Untagged
@@ -1114,7 +1240,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -1174,7 +1300,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 170146514}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 170146517}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 170146512}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &170146517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170146512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 6
 --- !u!1 &177800794
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1337,7 @@ GameObject:
   - component: {fileID: 177800797}
   - component: {fileID: 177800796}
   - component: {fileID: 177800798}
+  - component: {fileID: 177800799}
   m_Layer: 5
   m_Name: YLargestraight
   m_TagString: Untagged
@@ -1236,7 +1387,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -1296,7 +1447,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 177800796}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 177800799}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 177800794}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &177800799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177800794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 10
 --- !u!1 &179253490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +2143,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -2554,7 +2729,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -2632,7 +2807,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -2799,6 +2974,7 @@ GameObject:
   - component: {fileID: 597495653}
   - component: {fileID: 597495652}
   - component: {fileID: 597495654}
+  - component: {fileID: 597495655}
   m_Layer: 5
   m_Name: YSixes
   m_TagString: Untagged
@@ -2848,7 +3024,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -2908,7 +3084,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 597495652}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 597495655}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 597495650}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &597495655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597495650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 5
 --- !u!1 &630099048 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 0c0bea57816d8dc4aa00a77139b1bb36,
@@ -2979,6 +3179,7 @@ GameObject:
   - component: {fileID: 645294514}
   - component: {fileID: 645294513}
   - component: {fileID: 645294515}
+  - component: {fileID: 645294516}
   m_Layer: 5
   m_Name: YThree
   m_TagString: Untagged
@@ -3028,7 +3229,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -3088,7 +3289,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 645294513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 645294516}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 645294511}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &645294516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645294511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 2
 --- !u!1001 &653460565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3366,6 +3591,7 @@ GameObject:
   - component: {fileID: 758903977}
   - component: {fileID: 758903976}
   - component: {fileID: 758903978}
+  - component: {fileID: 758903979}
   m_Layer: 5
   m_Name: YSingle
   m_TagString: Untagged
@@ -3415,7 +3641,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -3475,7 +3701,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 758903976}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 758903979}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 758903974}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &758903979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758903974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 0
 --- !u!1001 &780879486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4120,7 +4370,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -4432,6 +4682,7 @@ GameObject:
   - component: {fileID: 1120176327}
   - component: {fileID: 1120176326}
   - component: {fileID: 1120176328}
+  - component: {fileID: 1120176329}
   m_Layer: 5
   m_Name: YFives
   m_TagString: Untagged
@@ -4481,7 +4732,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -4541,7 +4792,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1120176326}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1120176329}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1120176324}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1120176329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120176324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 4
 --- !u!1 &1124277452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 0c0bea57816d8dc4aa00a77139b1bb36,
@@ -4704,7 +4979,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -5657,7 +5932,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -5881,7 +6156,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6135,7 +6410,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6215,6 +6490,7 @@ GameObject:
   - component: {fileID: 1654357487}
   - component: {fileID: 1654357486}
   - component: {fileID: 1654357488}
+  - component: {fileID: 1654357489}
   m_Layer: 5
   m_Name: YFourofkind
   m_TagString: Untagged
@@ -6264,7 +6540,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6324,7 +6600,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1654357486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1654357489}
+        m_MethodName: iScore
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1654357484}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1654357489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654357484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b6139ef33062d4ea02a5344c6b06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreType: 8
 --- !u!1 &1682777018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,7 +6729,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6507,7 +6807,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6585,7 +6885,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6692,13 +6992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fe9921ef85e1b49ba8ce987927e356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dnum1: 0
-  Dnum2: 0
-  Dnum3: 0
-  Dnum4: 0
-  Dnum5: 0
-  check: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  houseChecker: 000000000000000000000000000000000000000000000000
 --- !u!1 &1752016490
 GameObject:
   m_ObjectHideFlags: 0
@@ -6759,7 +7052,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -6972,7 +7265,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -7218,18 +7511,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1850939128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1850939125}
-        m_MethodName: 
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
+      m_Calls: []
 --- !u!114 &1850939128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7646,7 +7928,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -7724,7 +8006,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -7895,7 +8177,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4

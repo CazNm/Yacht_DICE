@@ -101,6 +101,7 @@ public class Score : MonoBehaviour
     public static void myCal_sequence() {
         if (GM.myTurn)
         {
+            checkYacht(0);
             checkSingle(0);
             checkDouble(0);
             checkThree(0);
@@ -113,7 +114,6 @@ public class Score : MonoBehaviour
             checkFourK(0);
             checkSamllS(0);
             checkLargeS(0);
-            checkYacht(0);
             totalScore(0);
         }
     }
@@ -122,6 +122,7 @@ public class Score : MonoBehaviour
 
         if (GM.p2Turn)
         {
+            checkYacht(1);
             checkSingle(1);
             checkDouble(1);
             checkThree(1);
@@ -134,7 +135,6 @@ public class Score : MonoBehaviour
             checkFourK(1);
             checkSamllS(1);
             checkLargeS(1);
-            checkYacht(1);
             totalScore(1);
         }
 
@@ -146,6 +146,7 @@ public class Score : MonoBehaviour
         {
             checkyacht[i] = 0;
         }
+
         checkyacht[Dnum1 - 1] += 1;
         checkyacht[Dnum2 - 1] += 1;
         checkyacht[Dnum3 - 1] += 1;
@@ -326,7 +327,7 @@ public class Score : MonoBehaviour
     static void checkFullH(int player)
     {
 
-        for (int x = 0; x < 5; x++)
+        for (int x = 0; x < 6; x++)
         {
             houseChecker[x] = 0;
         }

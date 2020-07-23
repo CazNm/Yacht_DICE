@@ -51,9 +51,8 @@ public class GM : MonoBehaviour
         dice5 = GameObject.Find("dice5");
 
         timer = 0.0f;
-        wating_time = 1f;
+        wating_time = 0.4f;
 
-        r_count = 3;
         com_roll = 0;
         round = 1;
         myTurn = true;
@@ -67,7 +66,18 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (myTurn) userLogic();
+        else unkLogic();
+        
+        
+    }
 
+    private void FixedUpdate()
+    {
+        //여기 항목 일단 삭제함 페이즈 별로 나눴는데 위에 주석 좀 더 자세하게 보면 좋을듯
+    }
+
+    void userLogic() {
         if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
 
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
@@ -77,28 +87,31 @@ public class GM : MonoBehaviour
             allKeep();
             if (timer > wating_time)
             {
-                if (semiResult) {
+                if (semiResult)
+                {
 
                     Score.myCal_sequence();
                     Debug.Log("count checker");
                     semiResult = false;
                 }
 
-                if (r_count > 0) {
+                if (r_count > 0)
+                {
                     selectPhase();
+                    GM.scoreBoard.GetComponent<Button>().interactable = true;
                     timer = 0;
                 }
                 else //기록 페이즈 진입
                 {
                     for (int x = 0; x < 5; x++) { diceStop[x] = false; keep[x] = false; }
-                    
+
                     selec_phase = false;
                     record_phase = true;
                     scoreBoard.GetComponent<Button>().interactable = false;
                     scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
                     scoreBoard.GetComponent<OpenScoreBoard>().LookPedigree();
                 }
-                
+
             }
         }
 
@@ -106,23 +119,29 @@ public class GM : MonoBehaviour
         // 주사위 굴리기가 끝나고 선택페이즈로 진입 선택 페이즈에서 
         //족보 기록은 언제든지 가능 족보 기록 후 상대 턴 시작페이즈 진입
 
-        if (record_phase) { 
-        
+        if (record_phase)
+        {
+
         }//기록 페이즈 여기서 족보 기록 종료 후 상대 시작 페이즈 진입
     }
 
-    private void FixedUpdate()
-    {
-        //여기 항목 일단 삭제함 페이즈 별로 나눴는데 위에 주석 좀 더 자세하게 보면 좋을듯
-    }
-
+    void unkLogic() { }
     void StartPhase() {
+
+        r_count = 3;
+        semiResult = false;
+        selec_phase = false;
+        record_phase = false;
+
+        diceStop = new bool[6] { false, false, false, false, false, false };
 
         dice1.GetComponent<Rigidbody>().useGravity = false;
         dice2.GetComponent<Rigidbody>().useGravity = false;
         dice3.GetComponent<Rigidbody>().useGravity = false;
         dice4.GetComponent<Rigidbody>().useGravity = false;
         dice5.GetComponent<Rigidbody>().useGravity = false;
+
+        GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
 
         activeStartUI();
         
@@ -131,10 +150,6 @@ public class GM : MonoBehaviour
     void activeStartUI() {
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
         scoreBoard.GetComponent<Button>().interactable = false;
-    }
-
-    void RecordPhase() { 
-    
     }
 
     void comPlay()
