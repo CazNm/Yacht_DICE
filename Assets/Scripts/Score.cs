@@ -146,6 +146,7 @@ public class Score : MonoBehaviour
         {
             checkyacht[i] = 0;
         }
+
         checkyacht[Dnum1 - 1] += 1;
         checkyacht[Dnum2 - 1] += 1;
         checkyacht[Dnum3 - 1] += 1;
@@ -326,7 +327,7 @@ public class Score : MonoBehaviour
     static void checkFullH(int player)
     {
 
-        for (int x = 0; x < 5; x++)
+        for (int x = 0; x < 6; x++)
         {
             houseChecker[x] = 0;
         }

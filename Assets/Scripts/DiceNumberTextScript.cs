@@ -8,6 +8,7 @@ public class DiceNumberTextScript : MonoBehaviour {
 	Text text;
 
 	public static int [] diceNumbers = new int [5];
+	public static int[] numCount = new int[6] { 0, 0, 0, 0, 0, 0 };
 
 	// Use this for initialization
 	void Start () {
