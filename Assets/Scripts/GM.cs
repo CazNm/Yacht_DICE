@@ -9,16 +9,18 @@ public class GM : MonoBehaviour
 
     public static int r_count;
     public static int round;
-    public static bool playerTurn;
-    public static bool compTurn;
+    public static bool myTurn;
+    public static bool p2Turn;
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
 
     public static bool start_phase = true;
+    public static bool semiResult = false;
     public static bool selec_phase = false;
     public static bool record_phase = false;
+
 
     private static int com_roll;
 
@@ -32,7 +34,7 @@ public class GM : MonoBehaviour
     GameObject dice4;
     GameObject dice5;
 
-    GameObject scoreBoard;
+    public static GameObject scoreBoard;
     Button rollButton;
     
 
@@ -54,8 +56,8 @@ public class GM : MonoBehaviour
         r_count = 3;
         com_roll = 0;
         round = 1;
-        playerTurn = true;
-        compTurn = false;
+        myTurn = true;
+        p2Turn = false;
 
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
@@ -75,6 +77,13 @@ public class GM : MonoBehaviour
             allKeep();
             if (timer > wating_time)
             {
+                if (semiResult) {
+
+                    Score.myCal_sequence();
+                    Debug.Log("count checker");
+                    semiResult = false;
+                }
+
                 if (r_count > 0) {
                     selectPhase();
                     timer = 0;
@@ -121,7 +130,7 @@ public class GM : MonoBehaviour
 
     void activeStartUI() {
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
-
+        scoreBoard.GetComponent<Button>().interactable = false;
     }
 
     void RecordPhase() { 
@@ -143,9 +152,9 @@ public class GM : MonoBehaviour
         if (com_roll > 0)
         {
             com_roll = 0;
-            playerTurn = true;
+            myTurn = true;
             r_count = 3;
-            compTurn = false;
+            p2Turn = false;
             GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
             CancelInvoke("compRollDice");
         }
@@ -197,6 +206,7 @@ public class GM : MonoBehaviour
                 dice5.GetComponent<Rigidbody>().useGravity = true;
             }
 
+            semiResult = true;
             GM.r_count -= 1;
         }
     }

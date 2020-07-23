@@ -22,7 +22,7 @@ public class selector : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
 
         select_position = rectTransform.position;
-        keep_position = new Vector3(select_position.x, select_position.y + 245, 0);
+        keep_position = new Vector3(keep_position.x, 370, 0);
 
         //Debug.Log(rectTransform);
     }
@@ -38,7 +38,7 @@ public class selector : MonoBehaviour
             rectTransform.position = select_position;
         }
         else {
-            rectTransform.position = keep_position;
+            rectTransform.anchoredPosition = keep_position;
         }
 
     }

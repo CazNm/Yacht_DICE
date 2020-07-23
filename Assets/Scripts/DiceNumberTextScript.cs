@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,12 +12,15 @@ public class DiceNumberTextScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text> ();
+		for (int x = 0; x < 5; x++) {
+			diceNumbers[x] = Random.Range(1,6);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (GM.playerTurn)
+		if (GM.myTurn)
 		{
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}

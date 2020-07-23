@@ -19,7 +19,7 @@ public class DiceScript : MonoBehaviour {
 	public int dice_no;
 	public int diceResult;
 
-	// Use this for initialization
+	// Use this for initialization`4
 	void Start () {
 		rb = this.GetComponent<Rigidbody> ();
 		transform = this.GetComponent<Transform>();

@@ -26,7 +26,7 @@ public class Roll : MonoBehaviour
     {
         buttonText.text = "Roll! (" + GM.r_count + ")";
 
-        if (!GM.playerTurn)
+        if (!GM.myTurn)
         {
             //Debug.Log("false");
             GetComponent<Button>().interactable = false;
@@ -37,6 +37,7 @@ public class Roll : MonoBehaviour
         
         GM.selec_phase = false;
         GM.start_phase = false;
+        GM.scoreBoard.GetComponent<Button>().interactable = true;
 
         //Debug.Log("rolling sequence");
 
