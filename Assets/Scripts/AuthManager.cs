@@ -11,14 +11,13 @@ using UnityEngine.UI;
 
 public class AuthManager : MonoBehaviour
 {
-    class user {
-        public string name;
-        public string id;
+    class userData {
+        public string email;
         public string pw;
+        
 
-        public user(string name, string id, string pw) {
-            this.name = name;
-            this.id = id;
+        public userData(string email, string pw) {
+            this.email = email;
             this.pw = pw;
         }
     }
@@ -31,8 +30,10 @@ public class AuthManager : MonoBehaviour
     public Button signInButton;
     public Button singUPButton;
 
+    public static FirebaseDatabase firebaseDatabase;
     public static FirebaseApp firebaseApp;
     public static FirebaseAuth firebaseAuth;
+    public static DatabaseReference reference;
 
     public static FirebaseUser User;
 
@@ -55,6 +56,10 @@ public class AuthManager : MonoBehaviour
 
                 firebaseApp = FirebaseApp.DefaultInstance;
                 firebaseAuth = FirebaseAuth.DefaultInstance;
+                firebaseDatabase = FirebaseDatabase.DefaultInstance;
+                firebaseApp.SetEditorDatabaseUrl("https://yachtdiecbackend.firebaseio.com/");
+                reference = firebaseDatabase.RootReference;
+                
             }
 
             signInButton.interactable = IsFirebaseReady;
@@ -90,6 +95,7 @@ public class AuthManager : MonoBehaviour
                 else
                 {
                     User = task.Result;
+                    Debug.Log(User.UserId);
                     SceneManager.LoadScene("Lobby");
                 }
             });
@@ -111,6 +117,8 @@ public class AuthManager : MonoBehaviour
                     Debug.LogError(task.Exception);
                 }
                 else {
+                    Debug.Log(task.Result.UserId);
+                    writeNewUser(task.Result.UserId, emailField.text, passwordField.text);
                     GameObject.Find("Canvas").transform.Find("SignUpComp").gameObject.SetActive(true);
                 }
 
@@ -126,6 +134,13 @@ public class AuthManager : MonoBehaviour
         GameObject.Find("Canvas").transform.Find("LS").gameObject.SetActive(false); 
     }
 
+    private void writeNewUser(string id, string email, string pw)
+    {
+        userData user = new userData(email, pw);
+        string json = JsonUtility.ToJson(user);
+
+        reference.Child("users").Child(id).SetRawJsonValueAsync(json);
+    }
 
     //나중에 구글플레이 연동시 사용할 코드
 

@@ -1,4 +1,10 @@
-﻿using ExitGames.Client.Photon;
+﻿using Firebase;
+using Firebase.Auth;
+using Firebase.Extensions;
+using Firebase.Database;
+using Firebase.Unity.Editor;
+
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -26,6 +32,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private RoomOptions randomOptions;
     private RoomOptions customOptions;
+
+    public static FirebaseDatabase firebaseDatabase;
+    public static FirebaseApp firebaseApp;
+    public static FirebaseAuth firebaseAuth;
+    public static DatabaseReference reference;
+
+    public static FirebaseUser User;
 
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start()
