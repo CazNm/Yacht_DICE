@@ -23,18 +23,18 @@ public class inputScore : MonoBehaviour
     public void iScore(GameObject self) {
         self.GetComponent<Button>().interactable = false;
         GameObject.Find("Canvas").transform.Find("ScoreBoard").GetComponent<OpenScoreBoard>().LookPedigree();
-        if (GM.myTurn)
+        if (GM.playerOb.GetComponent<playerStat>().isMyturn)
         {
 
-            GM.myTurn = false;
-            GM.p2Turn = true;
+            GM.playerOb.GetComponent<playerStat>().isMyturn = false;
+            //GM.otherOb.GetComponent<playerStat>().isMyturn = true;
             GM.start_phase = true;
             
         }
         else {
   
-            GM.p2Turn = false;
-            GM.myTurn = true;
+            //GM.otherOb.GetComponent<playerStat>().isMyturn = false;
+            GM.playerOb.GetComponent<playerStat>().isMyturn = true;
             GM.start_phase = true;
         }
         Score.check[scoreType] = 1;

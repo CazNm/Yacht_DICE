@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShortcutManagement;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Realtime;
+using JetBrains.Annotations;
 
-public class GM : MonoBehaviour
+public class GM : MonoBehaviourPunCallbacks
 {
+    public static int playerIndex;
+    public static int otherIndex;
+    public GameObject[] dices = new GameObject[5];
+    public GameObject player;
 
     public static int r_count;
     public static int round;
@@ -16,6 +22,7 @@ public class GM : MonoBehaviour
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
 
+    public static bool start_game;
     public static bool start_phase = true;
     public static bool semiResult = false;
     public static bool selec_phase = false;
@@ -26,8 +33,7 @@ public class GM : MonoBehaviour
 
     private static float timer;
     private static float wating_time;
-    private static bool selecting = true;
-
+ 
     GameObject dice1;
     GameObject dice2;
     GameObject dice3;
@@ -35,6 +41,8 @@ public class GM : MonoBehaviour
     GameObject dice5;
 
     public static GameObject scoreBoard;
+    public static GameObject playerOb;
+    public static GameObject otherOb;
     Button rollButton;
     
 
@@ -43,21 +51,9 @@ public class GM : MonoBehaviour
 
     void Start()
     {
-
-        dice1 = GameObject.Find("dice1");
-        dice2 = GameObject.Find("dice2");
-        dice3 = GameObject.Find("dice3");
-        dice4 = GameObject.Find("dice4");
-        dice5 = GameObject.Find("dice5");
-
+        start_game = true;
         timer = 0.0f;
         wating_time = 0.4f;
-
-        com_roll = 0;
-        round = 1;
-        myTurn = true;
-        p2Turn = false;
-
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
 
@@ -66,30 +62,94 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myTurn) userLogic();
-        else unkLogic();
+
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         
+        /*if (PhotonNetwork.CurrentRoom.PlayerCount != 2) {
+            GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(true);
+            start_game = true;
+            return; 
+        }*/
+
+        if (start_game) {
+            spawnDice();
+            setTurn();
+            Debug.Log(playerIndex);
+            round = 1;
+            r_count = 3;
+            start_game = false;
+        } //여기서 호스트가 먼저 생성해야될 것들을 먼저 생성한다.
+
+        //동기화 되어야 하는 물체가 다 로딩이 되었는지 체크하는 로직 생성이나 동기화가 덜 되어서 게임 로직으로 넘어가는 것을 방지
+        if (dice1 != null && dice2 != null && dice3 != null && dice4 != null && dice5 != null && playerOb != null)
+        {
+            GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(false);
+        }
+        else {
+            dice1 = GameObject.Find("dice1(Clone)");
+            dice2 = GameObject.Find("dice2(Clone)");
+            dice3 = GameObject.Find("dice3(Clone)");
+            dice4 = GameObject.Find("dice4(Clone)");
+            dice5 = GameObject.Find("dice5(Clone)");
+            playerOb = GameObject.Find("player");
+            playerOb.GetComponent<playerStat>().isMyturn = myTurn;
+            otherOb = GameObject.Find("other");
+            otherOb.GetComponent<playerStat>().isMyturn = p2Turn;
+
+
+            GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(true);
+            return; 
+        }
+
+        GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
+
+        if (!playerOb.GetComponent<playerStat>().isMyturn) { return; } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
+
+        userLogic();
         
     }
 
-    private void FixedUpdate()
-    {
-        //여기 항목 일단 삭제함 페이즈 별로 나눴는데 위에 주석 좀 더 자세하게 보면 좋을듯
+
+    void spawnDice() {
+        PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
+        if (!PhotonNetwork.IsMasterClient) { return; }
+        for (int x = 0; x < 5; x++) {
+            PhotonNetwork.Instantiate(dices[x].name, dices[x].GetComponent<DiceScript>().resultPos, Quaternion.Euler(0, 0, 0));
+        }
+    }
+
+    void setTurn() {
+
+        playerIndex =  PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        Debug.Log(playerIndex + "!!!");
+        if (playerIndex == 1)
+        {
+            myTurn = false;
+            p2Turn = true;
+            otherIndex = 0;
+        }
+        else
+        {
+            myTurn = true;
+            p2Turn = false;
+            otherIndex = 1;
+        }
     }
 
     void userLogic() {
         if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
-
+        Debug.Log("checkr 1");
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
+            Debug.Log("checkr 2");
             selec_phase = true;
             timer += Time.deltaTime;
             allKeep();
+
             if (timer > wating_time)
             {
                 if (semiResult)
                 {
-
                     Score.myCal_sequence();
                     Debug.Log("count checker");
                     semiResult = false;
@@ -124,8 +184,6 @@ public class GM : MonoBehaviour
 
         }//기록 페이즈 여기서 족보 기록 종료 후 상대 시작 페이즈 진입
     }
-
-    void unkLogic() { }
     void StartPhase() {
 
         r_count = 3;
@@ -133,7 +191,7 @@ public class GM : MonoBehaviour
         selec_phase = false;
         record_phase = false;
 
-        diceStop = new bool[6] { false, false, false, false, false, false };
+        diceStop = new bool[5] { false, false, false, false, false};
 
         dice1.GetComponent<Rigidbody>().useGravity = false;
         dice2.GetComponent<Rigidbody>().useGravity = false;
@@ -143,36 +201,9 @@ public class GM : MonoBehaviour
 
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
 
-        activeStartUI();
-        
-    }
-
-    void activeStartUI() {
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
         scoreBoard.GetComponent<Button>().interactable = false;
-    }
 
-    void comPlay()
-    {
-        InvokeRepeating("compRollDice", 1f, 4f);
-    }
-
-    void compRollDice()
-    {
-
-        Rolldice();
-        com_roll += 1;
-        Debug.Log(com_roll);
-
-        if (com_roll > 0)
-        {
-            com_roll = 0;
-            myTurn = true;
-            r_count = 3;
-            p2Turn = false;
-            GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
-            CancelInvoke("compRollDice");
-        }
     }
 
     void allKeep() {

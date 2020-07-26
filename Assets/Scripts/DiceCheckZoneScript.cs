@@ -13,20 +13,20 @@ public class DiceCheckZoneScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		diceVelocity1 = GameObject.Find("dice1").GetComponent<DiceScript>().diceVelocity;
-		diceVelocity2 = GameObject.Find("dice2").GetComponent<DiceScript>().diceVelocity;
-		diceVelocity3 = GameObject.Find("dice3").GetComponent<DiceScript>().diceVelocity;
-		diceVelocity4 = GameObject.Find("dice4").GetComponent<DiceScript>().diceVelocity;
-		diceVelocity5 = GameObject.Find("dice5").GetComponent<DiceScript>().diceVelocity;
+		diceVelocity1 = GameObject.Find("dice1(Clone)").GetComponent<DiceScript>().diceVelocity;
+		diceVelocity2 = GameObject.Find("dice2(Clone)").GetComponent<DiceScript>().diceVelocity;
+		diceVelocity3 = GameObject.Find("dice3(Clone)").GetComponent<DiceScript>().diceVelocity;
+		diceVelocity4 = GameObject.Find("dice4(Clone)").GetComponent<DiceScript>().diceVelocity;
+		diceVelocity5 = GameObject.Find("dice5(Clone)").GetComponent<DiceScript>().diceVelocity;
 	}
 
 	void OnTriggerStay(Collider col)
 	{
-		DiceStop(diceVelocity1, 0, col , "dice1");
-		DiceStop(diceVelocity2, 1, col , "dice2");
-		DiceStop(diceVelocity3, 2, col , "dice3");
-		DiceStop(diceVelocity4, 3, col , "dice4");
-		DiceStop(diceVelocity5, 4, col , "dice5");
+		DiceStop(diceVelocity1, 0, col , "dice1(Clone)");
+		DiceStop(diceVelocity2, 1, col , "dice2(Clone)");
+		DiceStop(diceVelocity3, 2, col , "dice3(Clone)");
+		DiceStop(diceVelocity4, 3, col , "dice4(Clone)");
+		DiceStop(diceVelocity5, 4, col , "dice5(Clone)");
 	}
 
 	void DiceStop(Vector3 diceVel, int dice_no, Collider col, string Dice) {

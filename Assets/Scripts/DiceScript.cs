@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class DiceScript : MonoBehaviour {
+public class DiceScript : MonoBehaviourPun {
 
 	Rigidbody rb;
 	Transform transform;
@@ -40,6 +41,8 @@ public class DiceScript : MonoBehaviour {
 	void Update () {
 		diceVelocity = rb.velocity;
 		currentPos = transform.position;
+
+		//if (!GM.playerOb.GetComponent<playerStat>().isMyturn) return;
 		
 		if (currentPos.y < -0.5f)
         {

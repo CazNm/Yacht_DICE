@@ -1,6 +1,9 @@
 ﻿using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
+using Firebase.Database;
+using Firebase.Unity.Editor;
+
 using Photon.Pun.Demo.Cockpit.Forms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +11,17 @@ using UnityEngine.UI;
 
 public class AuthManager : MonoBehaviour
 {
+    class user {
+        public string name;
+        public string id;
+        public string pw;
+
+        public user(string name, string id, string pw) {
+            this.name = name;
+            this.id = id;
+            this.pw = pw;
+        }
+    }
     public bool IsFirebaseReady { get; private set; }
     public bool IsSignInOnProgress { get; private set; }
     public bool IsSignUpOnProgress { get; private set; }
@@ -65,7 +79,9 @@ public class AuthManager : MonoBehaviour
 
                 if (task.IsFaulted)
                 {
+                    GameObject.Find("Canvas").transform.Find("LS").gameObject.SetActive(true);
                     Debug.LogError(task.Exception);
+                    
                 }
                 else if (task.IsCanceled)
                 {
