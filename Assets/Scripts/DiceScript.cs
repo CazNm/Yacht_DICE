@@ -57,21 +57,21 @@ public class DiceScript : MonoBehaviourPun {
 
 		//위치 설정 코드
 		if (GM.keep[dice_no] && GM.selec_phase) {
-			diceResult = DiceNumberTextScript.diceNumbers[dice_no];
+			diceResult = GM.diceScore[dice_no];
 			transform.position = new Vector3(resultPos.x, resultPos.y, 3.8f);
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
 			
 		} // 다이스가 킵이고 셀렉트 페이즈 일때
 
 		if (!GM.keep[dice_no] && GM.selec_phase) {
-			diceResult = DiceNumberTextScript.diceNumbers[dice_no];
+			diceResult = GM.diceScore[dice_no];
 			transform.position = resultPos;
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
 			
 		}// 다이스를 킵하지 않은 상태이고 셀렉트 페이즈 일때
-
-		if ((GM.keep[dice_no] && !GM.selec_phase) || GM.record_phase) {
-			diceResult = DiceNumberTextScript.diceNumbers[dice_no];
+		 
+		if (GM.record_phase || (GM.keep[dice_no] && !GM.selec_phase)) {
+			diceResult = GM.diceScore[dice_no];
 			transform.position = new Vector3(resultPos.x, resultPos.y, 5.5f);
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
 			//다이스를 킵한 상태이고 셀렉트 페이즈가 아닐 때 그냥 주사위 굴러갈때 킵한거임.

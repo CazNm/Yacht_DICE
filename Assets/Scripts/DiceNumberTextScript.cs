@@ -23,6 +23,9 @@ public class DiceNumberTextScript : MonoBehaviour {
 
 		if(GM.myTurn)
 		{
+			for (int x = 0; x < 5; x++) {
+				diceNumbers[x] = GM.diceScore[x];
+			}
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}
 		else { 

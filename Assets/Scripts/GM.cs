@@ -18,6 +18,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool myTurn;
     public static bool p2Turn;
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
+    public static int[] diceScore = { 0, 0, 0, 0, 0 };
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
@@ -76,7 +77,6 @@ public class GM : MonoBehaviourPunCallbacks
             setTurn();
             Debug.Log(playerIndex);
             round = 1;
-            r_count = 3;
             start_game = false;
         } //여기서 호스트가 먼저 생성해야될 것들을 먼저 생성한다.
 
@@ -155,6 +155,7 @@ public class GM : MonoBehaviourPunCallbacks
                   
                     semiResult = false;
                     sendPhase();
+                    sendPoint();
                 }
 
                 if (r_count > 0)
@@ -199,6 +200,7 @@ public class GM : MonoBehaviourPunCallbacks
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
 
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
+        rollButton.interactable = true;
         scoreBoard.GetComponent<Button>().interactable = false;
 
     }
@@ -304,17 +306,34 @@ public class GM : MonoBehaviourPunCallbacks
         photonview.RPC("syncPhase", RpcTarget.All, start_phase, semiResult, selec_phase, record_phase, keep);
     }
 
+    public void sendPoint() {
+        PhotonView photonview = PhotonView.Get(this);
+        photonview.RPC("syncPoint", RpcTarget.All, diceScore[0], diceScore[1], diceScore[2], diceScore[3], diceScore[4]);
+    }
+
     [PunRPC]
     public void ChangeTurn(string message) {
         Debug.Log(message);
 
         if (myTurn) { myTurn = false; }
-        else  { myTurn = true; }
+        else  { 
+            myTurn = true;
+            GM.start_phase = true;
+        }
     }
 
     [PunRPC]
-    public void syncPoint(string message) {
-        Debug.Log(message);
+    public void syncPoint(int dice1, int dice2 , int dice3, int dice4, int dice5) {
+
+        if (myTurn) { return; }
+
+        diceScore[0] = dice1;
+        diceScore[1] = dice2;
+        diceScore[2] = dice3;
+        diceScore[3] = dice4;
+        diceScore[4] = dice5;
+
+        Debug.Log("sync point: "+ dice1 + " / " + dice2 + " / " + dice3 + " / " + dice4 + " / " + dice5);
     }
 
     [PunRPC]
