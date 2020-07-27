@@ -97,7 +97,12 @@ public class GM : MonoBehaviourPunCallbacks
 
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
-        if (!myTurn) { return; } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
+        if (!myTurn) {
+            rollButton.interactable = false;
+            scoreBoard.GetComponent<Button>().interactable = false;
+            
+
+        } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
         userLogic();
         
     }
@@ -136,6 +141,8 @@ public class GM : MonoBehaviourPunCallbacks
         {
             Debug.Log("checkr 2");
             selec_phase = true;
+            sendPhase();
+
             timer += Time.deltaTime;
             allKeep();
 
@@ -145,7 +152,9 @@ public class GM : MonoBehaviourPunCallbacks
                 {
                     Score.myCal_sequence();
                     Debug.Log("count checker");
+                  
                     semiResult = false;
+                    sendPhase();
                 }
 
                 if (r_count > 0)
@@ -171,11 +180,6 @@ public class GM : MonoBehaviourPunCallbacks
 
         // 주사위 굴리기가 끝나고 선택페이즈로 진입 선택 페이즈에서 
         //족보 기록은 언제든지 가능 족보 기록 후 상대 턴 시작페이즈 진입
-
-        if (record_phase)
-        {
-
-        }//기록 페이즈 여기서 족보 기록 종료 후 상대 시작 페이즈 진입
     }
     void StartPhase() {
 
@@ -246,6 +250,7 @@ public class GM : MonoBehaviourPunCallbacks
             }
 
             semiResult = true;
+            sendPhase();
             GM.r_count -= 1;
         }
     }
@@ -278,19 +283,25 @@ public class GM : MonoBehaviourPunCallbacks
             button.GetComponent<selector>().keep = true;
             button.GetComponent<Button>().interactable = false;
             button.GetComponent<Button>().interactable = true;
+            sendPhase();
         }
         else {
             Debug.Log("Ready to roll");
             button.GetComponent<selector>().keep = false;
             button.GetComponent<Button>().interactable = false;
             button.GetComponent<Button>().interactable = true;
+            sendPhase();
         }
-        
     }
 
     public void sendMessage(string functionName, string message) {
         PhotonView photonview = PhotonView.Get(this);
         photonview.RPC(functionName, RpcTarget.All, message);
+    }
+
+    public void sendPhase() {
+        PhotonView photonview = PhotonView.Get(this);
+        photonview.RPC("syncPhase", RpcTarget.All, start_phase, semiResult, selec_phase, record_phase, keep);
     }
 
     [PunRPC]
@@ -299,6 +310,28 @@ public class GM : MonoBehaviourPunCallbacks
 
         if (myTurn) { myTurn = false; }
         else  { myTurn = true; }
-    
+    }
+
+    [PunRPC]
+    public void syncPoint(string message) {
+        Debug.Log(message);
+    }
+
+    [PunRPC]
+    public void syncPhase(bool startSync, bool semiSync, bool selecSync, bool recordSync, bool [] keepSync) {
+        Debug.Log("sync turn state");
+
+        if (myTurn) {
+            return;
+        }
+
+        start_phase = startSync;
+        semiResult = semiSync;
+        selec_phase = selecSync;
+        record_phase = recordSync;
+
+        for (int x = 0; x < keep.Length; x++) {
+            keep[x] = keepSync[x];
+        }
     }
 }

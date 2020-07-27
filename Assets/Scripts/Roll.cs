@@ -36,6 +36,8 @@ public class Roll : MonoBehaviour
         
         GM.selec_phase = false;
         GM.start_phase = false;
+
+        GameObject.Find("GameManager").GetComponent<GM>().sendPhase();
         
 
         //Debug.Log("rolling sequence");
