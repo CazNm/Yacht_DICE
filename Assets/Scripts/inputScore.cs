@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class inputScore : MonoBehaviour
+public class inputScore : MonoBehaviourPun
 {
 
     public int scoreType;
@@ -23,20 +24,10 @@ public class inputScore : MonoBehaviour
     public void iScore(GameObject self) {
         self.GetComponent<Button>().interactable = false;
         GameObject.Find("Canvas").transform.Find("ScoreBoard").GetComponent<OpenScoreBoard>().LookPedigree();
-        if (GM.playerOb.GetComponent<playerStat>().isMyturn)
+        if (GM.myTurn)
         {
-
-            GM.playerOb.GetComponent<playerStat>().isMyturn = false;
-            //GM.otherOb.GetComponent<playerStat>().isMyturn = true;
-            GM.start_phase = true;
-            
+            GameObject.Find("GameManager").GetComponent<GM>().sendMessage("ChangeTurn", "turn change by photon sync");
+            Score.check[scoreType] = 1;
         }
-        else {
-  
-            //GM.otherOb.GetComponent<playerStat>().isMyturn = false;
-            GM.playerOb.GetComponent<playerStat>().isMyturn = true;
-            GM.start_phase = true;
-        }
-        Score.check[scoreType] = 1;
     }
 }

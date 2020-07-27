@@ -81,7 +81,7 @@ public class GM : MonoBehaviourPunCallbacks
         } //여기서 호스트가 먼저 생성해야될 것들을 먼저 생성한다.
 
         //동기화 되어야 하는 물체가 다 로딩이 되었는지 체크하는 로직 생성이나 동기화가 덜 되어서 게임 로직으로 넘어가는 것을 방지
-        if (dice1 != null && dice2 != null && dice3 != null && dice4 != null && dice5 != null && playerOb != null)
+        if (dice1 != null && dice2 != null && dice3 != null && dice4 != null && dice5 != null)
         {
             GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(false);
         }
@@ -91,20 +91,13 @@ public class GM : MonoBehaviourPunCallbacks
             dice3 = GameObject.Find("dice3(Clone)");
             dice4 = GameObject.Find("dice4(Clone)");
             dice5 = GameObject.Find("dice5(Clone)");
-            playerOb = GameObject.Find("player");
-            playerOb.GetComponent<playerStat>().isMyturn = myTurn;
-            otherOb = GameObject.Find("other");
-            otherOb.GetComponent<playerStat>().isMyturn = p2Turn;
-
-
             GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(true);
             return; 
         }
 
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
-        if (!playerOb.GetComponent<playerStat>().isMyturn) { return; } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
-
+        if (!myTurn) { return; } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
         userLogic();
         
     }
@@ -293,5 +286,19 @@ public class GM : MonoBehaviourPunCallbacks
             button.GetComponent<Button>().interactable = true;
         }
         
+    }
+
+    public void sendMessage(string functionName, string message) {
+        PhotonView photonview = PhotonView.Get(this);
+        photonview.RPC(functionName, RpcTarget.All, message);
+    }
+
+    [PunRPC]
+    public void ChangeTurn(string message) {
+        Debug.Log(message);
+
+        if (myTurn) { myTurn = false; }
+        else  { myTurn = true; }
+    
     }
 }

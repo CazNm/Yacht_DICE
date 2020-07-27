@@ -8,6 +8,7 @@ using Photon.Pun.Demo.Cockpit.Forms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Runtime.ExceptionServices;
 
 public class AuthManager : MonoBehaviour
 {
@@ -21,6 +22,41 @@ public class AuthManager : MonoBehaviour
             this.pw = pw;
         }
     }
+
+    class userGame {
+        public bool myTurn;
+        public int single;
+        public int seconds;
+        public int triple;
+        public int fours;
+        public int fives;
+        public int sixes;
+        public int chance;
+        public int fullhouse;
+        public int fourOfkind;
+        public bool smallStraight;
+        public bool largeStraight;
+        public bool yacht;
+
+        public userGame(bool myTurn, int single, int seconds, int triple, int fours, int fives, int sixes, int chance, int fullhouse, int fourOfkind, bool smallStraight, bool largeStraight, bool yacht) {
+            this.myTurn = myTurn;
+            this.single = single;
+            this.seconds = seconds;
+            this.triple = triple;
+            this.fours = fours;
+            this.fives = fives;
+            this.sixes = sixes;
+            this.chance = chance;
+            this.fullhouse = fullhouse;
+            this.fourOfkind = fourOfkind;
+            this.smallStraight = smallStraight;
+            this.largeStraight = largeStraight;
+            this.yacht = yacht;
+        }
+    
+    }
+
+
     public bool IsFirebaseReady { get; private set; }
     public bool IsSignInOnProgress { get; private set; }
     public bool IsSignUpOnProgress { get; private set; }
@@ -39,6 +75,7 @@ public class AuthManager : MonoBehaviour
 
     public void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         signInButton.interactable = false;
 
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -119,6 +156,7 @@ public class AuthManager : MonoBehaviour
                 else {
                     Debug.Log(task.Result.UserId);
                     writeNewUser(task.Result.UserId, emailField.text, passwordField.text);
+                    //wirteNewStat(task.Result.UserId);
                     GameObject.Find("Canvas").transform.Find("SignUpComp").gameObject.SetActive(true);
                 }
 
@@ -141,6 +179,14 @@ public class AuthManager : MonoBehaviour
 
         reference.Child("users").Child(id).SetRawJsonValueAsync(json);
     }
+
+    /*private void wirteNewStat(string id) {
+        userGame user = new userGame(false, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+        string json = JsonUtility.ToJson(user);
+
+        reference.Child("usrGameStat").Child(id).SetRawJsonValueAsync(json);
+    }*/
+
 
     //나중에 구글플레이 연동시 사용할 코드
 
