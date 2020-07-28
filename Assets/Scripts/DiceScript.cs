@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class DiceScript : MonoBehaviourPun {
+public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 
 	Rigidbody rb;
 	Transform transform;
@@ -12,39 +13,74 @@ public class DiceScript : MonoBehaviourPun {
 	private float rdirX;
 	private float rdirZ;
 
+	float rotX;
+	float rotY;
+	float rotZ;
+
+
 	public Vector3 resultPos;
 	//public Vector3 keepPos;
 	//public Vector3 selectKpos;
 	public Vector3 currentPos;
+	public Quaternion currentRot;
 	public Vector3 diceVelocity;
 	public int dice_no;
 	public int diceResult;
 
-	// Use this for initialization`4
-	void Start () {
-		rb = this.GetComponent<Rigidbody> ();
+	// Use this for initialization
+
+	void Awake() {
+		Debug.Log("settin1g");
+		photonView.Synchronization = ViewSynchronization.Unreliable;
+		photonView.ObservedComponents[0] = this;
+
+		rb = this.GetComponent<Rigidbody>();
 		transform = this.GetComponent<Transform>();
+
+		currentPos = transform.position;
+		currentRot = transform.rotation;
+
+	}
+	void Start () {
+		Debug.Log("setting");
+		
+		
+
+		if (!photonView.IsMine) {
+			
+
+			rb.isKinematic = true;
+			return; 
+		}
+
 		rdirX = Random.Range(-4, 4);
 		rdirZ = Random.Range(-4, 4);
 
-		float rotX = Random.Range(0, 360);
-		float rotY = Random.Range(0, 360);
-		float rotZ = Random.Range(0, 360);
+		 rotX = Random.Range(0, 360);
+		 rotY = Random.Range(0, 360);
+		 rotZ = Random.Range(0, 360);
 
 		transform.position = new Vector3(rdirX, 1f, rdirZ);
 		transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
-		currentPos = transform.position;
+		
 		
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
 		diceVelocity = rb.velocity;
-		currentPos = transform.position;
+		
+        if (!photonView.IsMine) {
+			
+			transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, currentRot, Time.deltaTime * 10f);
+			return; 
+		}
 
 		//if (!GM.playerOb.GetComponent<playerStat>().isMyturn) return;
 		
-		if (currentPos.y < -0.5f)
+		if (transform.position.y < -0.5f)
         {
 			//Debug.Log("out of box");
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);
@@ -87,10 +123,31 @@ public class DiceScript : MonoBehaviourPun {
 		float dirX = Random.Range(0, 500);
 		float dirY = Random.Range(0, 500);
 		float dirZ = Random.Range(0, 500);
-		transform.position = new Vector3(currentPos.x, 5, currentPos.z);
+		transform.position = new Vector3(transform.position.x, 5, transform.position.z);
 		//transform.rotation = Quaternion.identity;
 		rb.AddForce(transform.up * 500);
 		rb.AddTorque(new Vector3 (dirX, dirY, dirZ) );
 
 	}
+
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+		//throw new System.NotImplementedException();
+
+		if (stream.IsWriting)
+		{
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+			stream.SendNext(rb.useGravity);
+			
+		}
+		else {
+
+			currentPos = (Vector3)stream.ReceiveNext();
+			currentRot =(Quaternion)stream.ReceiveNext();
+			
+		}
+    }
 }

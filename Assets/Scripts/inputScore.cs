@@ -8,11 +8,12 @@ public class inputScore : MonoBehaviourPun
 {
 
     public int scoreType;
+    PhotonView photonview;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        photonview = PhotonView.Get(this);
     }
 
     // Update is called once per frame

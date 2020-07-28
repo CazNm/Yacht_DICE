@@ -42,9 +42,9 @@ public class GM : MonoBehaviourPunCallbacks
     GameObject dice5;
 
     public static GameObject scoreBoard;
-    public static GameObject playerOb;
-    public static GameObject otherOb;
     Button rollButton;
+
+    PhotonView photonview;
     
 
     //시스템적으로 선공 후공 결정해야됨, 일단은 사람 vs 컴으로 구성 사람이 선공인 상황을 가정
@@ -54,10 +54,10 @@ public class GM : MonoBehaviourPunCallbacks
     {
         start_game = true;
         timer = 0.0f;
-        wating_time = 0.4f;
+        wating_time = 0.0f;
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
-
+        photonview = PhotonView.Get(this);
     }
 
     // Update is called once per frame
@@ -100,10 +100,9 @@ public class GM : MonoBehaviourPunCallbacks
         if (!myTurn) {
             rollButton.interactable = false;
             scoreBoard.GetComponent<Button>().interactable = false;
-            
+        } // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
 
-        } //내 턴이 아니라면 유저 로직으로 가는게 아닌 관찰/ 비활성화 로직 작성 예정
-        userLogic();
+        mainLogic();
         
     }
 
@@ -123,19 +122,17 @@ public class GM : MonoBehaviourPunCallbacks
         if (playerIndex == 1)
         {
             myTurn = false;
-            p2Turn = true;
-            otherIndex = 0;
         }
         else
         {
             myTurn = true;
-            p2Turn = false;
-            otherIndex = 1;
         }
     }
 
-    void userLogic() {
+    void mainLogic() {
         if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
+
+        if (!PhotonNetwork.IsMasterClient) { return; }
         Debug.Log("checkr 1");
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
@@ -146,36 +143,34 @@ public class GM : MonoBehaviourPunCallbacks
             timer += Time.deltaTime;
             allKeep();
 
-            if (timer > wating_time)
+            if (semiResult)
             {
-                if (semiResult)
-                {
-                    Score.myCal_sequence();
-                    Debug.Log("count checker");
-                  
-                    semiResult = false;
-                    sendPhase();
-                    sendPoint();
-                }
+                Score.myCal_sequence();
+                Debug.Log("count checker");
 
-                if (r_count > 0)
-                {
-                    selectPhase();
-                    GM.scoreBoard.GetComponent<Button>().interactable = true;
-                    timer = 0;
-                }
-                else //기록 페이즈 진입
-                {
-                    for (int x = 0; x < 5; x++) { diceStop[x] = false; keep[x] = false; }
-
-                    selec_phase = false;
-                    record_phase = true;
-                    scoreBoard.GetComponent<Button>().interactable = false;
-                    scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
-                    scoreBoard.GetComponent<OpenScoreBoard>().LookPedigree();
-                }
-
+                semiResult = false;
+                sendPhase();
+                sendPoint();
             }
+
+            if (r_count > 0)
+            {
+                selectPhase();
+                GM.scoreBoard.GetComponent<Button>().interactable = true;
+                timer = 0;
+            }
+            else //기록 페이즈 진입
+            {
+                for (int x = 0; x < 5; x++) { diceStop[x] = false; keep[x] = false; }
+
+                selec_phase = false;
+                record_phase = true;
+                scoreBoard.GetComponent<Button>().interactable = false;
+                scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
+                scoreBoard.GetComponent<OpenScoreBoard>().LookPedigree();
+            }
+
+
         }
 
 
@@ -184,12 +179,15 @@ public class GM : MonoBehaviourPunCallbacks
     }
     void StartPhase() {
 
+        Debug.Log("start phase");
+
         r_count = 3;
         semiResult = false;
         selec_phase = false;
         record_phase = false;
 
         diceStop = new bool[5] { false, false, false, false, false};
+        keep = new bool[5] { false, false, false, false, false };
 
         dice1.GetComponent<Rigidbody>().useGravity = false;
         dice2.GetComponent<Rigidbody>().useGravity = false;
@@ -215,9 +213,14 @@ public class GM : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
     public void Rolldice()
     {
 
+        if (!PhotonNetwork.IsMasterClient) {
+            return;
+        } // Rolldice() 호출시에 마스터 클라이 언트에서 주사위를 굴리도록 함
+        
         if (GM.r_count > 0)
         {
             if (!keep[0])
@@ -311,11 +314,19 @@ public class GM : MonoBehaviourPunCallbacks
         photonview.RPC("syncPoint", RpcTarget.All, diceScore[0], diceScore[1], diceScore[2], diceScore[3], diceScore[4]);
     }
 
+    public void sendRoll() {
+        Debug.Log("RPC ROll");
+        photonView.RPC("Rolldice", RpcTarget.All);
+    }
+
     [PunRPC]
     public void ChangeTurn(string message) {
         Debug.Log(message);
 
-        if (myTurn) { myTurn = false; }
+        if (myTurn) { 
+            myTurn = false;
+            GM.start_phase = true;
+        }
         else  { 
             myTurn = true;
             GM.start_phase = true;

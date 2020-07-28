@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 1593133279069649695}
   - component: {fileID: 505802835961550547}
   - component: {fileID: 6077400900667968418}
+  - component: {fileID: 88904435967776474}
   m_Layer: 0
   m_Name: dice5
   m_TagString: Dice
@@ -383,7 +384,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.0000005, y: 2.0000002, z: 2.0000007}
-  m_Center: {x: 0.000000059604645, y: 0.00000011920929, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1593133279069649695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPos: {x: 3, y: 12, z: 1}
   currentPos: {x: 0, y: 0, z: 0}
+  currentRot: {x: 0, y: 0, z: 0, w: 0}
   diceVelocity: {x: 0, y: 0, z: 0}
   dice_no: 4
   diceResult: 0
@@ -416,10 +418,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 6077400900667968418}
+  - {fileID: 1593133279069649695}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -438,3 +440,19 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &88904435967776474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294176977752058410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3

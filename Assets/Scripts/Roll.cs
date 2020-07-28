@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Roll : MonoBehaviour
+public class Roll : MonoBehaviourPun
 {
 
     Button BT;
     Text buttonText;
+    PhotonView photonview;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,7 @@ public class Roll : MonoBehaviour
 
         buttonText = GetComponentInChildren<Text>();
         buttonText.text = "Roll! (" + GM.r_count + ")";
+        photonview = PhotonView.Get(this);
 
     }
 
@@ -38,12 +41,11 @@ public class Roll : MonoBehaviour
         GM.start_phase = false;
 
         GameObject.Find("GameManager").GetComponent<GM>().sendPhase();
-        
+
 
         //Debug.Log("rolling sequence");
-
-
-        GameObject.Find("GameManager").GetComponent<GM>().Rolldice();
+        GameObject.Find("GameManager").GetComponent<GM>().sendRoll();
+       
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
         GetComponent<Button>().interactable = false;
