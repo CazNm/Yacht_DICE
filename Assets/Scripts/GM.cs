@@ -131,18 +131,15 @@ public class GM : MonoBehaviourPunCallbacks
 
     void mainLogic() {
         if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
-
-        if (!PhotonNetwork.IsMasterClient) { return; }
+        if (!myTurn) { return; }
         Debug.Log("checkr 1");
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             Debug.Log("checkr 2");
             selec_phase = true;
             sendPhase();
-
             timer += Time.deltaTime;
             allKeep();
-
             if (semiResult)
             {
                 Score.myCal_sequence();
@@ -152,7 +149,6 @@ public class GM : MonoBehaviourPunCallbacks
                 sendPhase();
                 sendPoint();
             }
-
             if (r_count > 0)
             {
                 selectPhase();
@@ -169,11 +165,7 @@ public class GM : MonoBehaviourPunCallbacks
                 scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
                 scoreBoard.GetComponent<OpenScoreBoard>().LookPedigree();
             }
-
-
         }
-
-
         // 주사위 굴리기가 끝나고 선택페이즈로 진입 선택 페이즈에서 
         //족보 기록은 언제든지 가능 족보 기록 후 상대 턴 시작페이즈 진입
     }
@@ -220,7 +212,8 @@ public class GM : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient) {
             return;
         } // Rolldice() 호출시에 마스터 클라이 언트에서 주사위를 굴리도록 함
-        
+
+        Debug.Log("Master rolling");
         if (GM.r_count > 0)
         {
             if (!keep[0])
@@ -325,14 +318,16 @@ public class GM : MonoBehaviourPunCallbacks
 
         if (myTurn) { 
             myTurn = false;
+            GM.record_phase = false;
             GM.start_phase = true;
         }
         else  { 
             myTurn = true;
+            GM.record_phase = false;
             GM.start_phase = true;
         }
     }
-
+    
     [PunRPC]
     public void syncPoint(int dice1, int dice2 , int dice3, int dice4, int dice5) {
 

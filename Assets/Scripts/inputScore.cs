@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -19,7 +20,8 @@ public class inputScore : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+        if (!GM.myTurn) { GetComponent<Button>().interactable = false; }
+        else { GetComponent<Button>().interactable = true; }
     }
 
     public void iScore(GameObject self) {
@@ -28,6 +30,7 @@ public class inputScore : MonoBehaviourPun
         if (GM.myTurn)
         {
             GameObject.Find("GameManager").GetComponent<GM>().sendMessage("ChangeTurn", "turn change by photon sync");
+            
             Score.check[scoreType] = 1;
         }
     }
