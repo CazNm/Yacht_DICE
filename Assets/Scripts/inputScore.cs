@@ -23,6 +23,7 @@ public class inputScore : MonoBehaviour
     public void iScore(GameObject self) {
         self.GetComponent<Button>().interactable = false;
         GameObject.Find("Canvas").transform.Find("ScoreBoard").GetComponent<OpenScoreBoard>().LookPedigree();
+
         if (GM.myTurn)
         {
 

@@ -30,6 +30,10 @@ public class selector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GM.p2Turn)
+        {
+            btn.interactable = false;
+        }
 
         GM.keep[dice_int] = keep;
 

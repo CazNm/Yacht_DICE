@@ -30,7 +30,10 @@ public class OpenScoreBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GM.p2Turn)
+        {
+            btn.interactable = false;
+        }
     }
 
     public void LookPedigree()

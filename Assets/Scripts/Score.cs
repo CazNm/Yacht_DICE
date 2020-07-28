@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +17,7 @@ public class Score : MonoBehaviour
     public static int Dnum4 = DiceNumberTextScript.diceNumbers[3];
     public static int Dnum5 = DiceNumberTextScript.diceNumbers[4];
 
-    public static int[] check = new int[12];
+    public static int[] check = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public static int[] houseChecker = new int[6] { 0, 0, 0, 0, 0, 0 };
 
     static int singlesum;
@@ -27,7 +29,7 @@ public class Score : MonoBehaviour
     static int sumcheck = 0;
     static int sum;
     static int bonus;
-    static int chancesum;
+    public static int chancesum;
     static int fullhouse;
     static int fourofkind;
     static int smallstraight;
@@ -97,10 +99,10 @@ public class Score : MonoBehaviour
         Dnum5 = DiceNumberTextScript.diceNumbers[4];
     }
 
-
     public static void myCal_sequence() {
         if (GM.myTurn)
         {
+            loadSum(0);
             checkYacht(0);
             checkSingle(0);
             checkDouble(0);
@@ -108,13 +110,11 @@ public class Score : MonoBehaviour
             checkFour(0);
             checkFives(0);
             checkSixes(0);
-            bounus_sum(0);
             checkChance(0);
             checkFullH(0);
             checkFourK(0);
             checkSamllS(0);
             checkLargeS(0);
-            totalScore(0);
         }
     }
 
@@ -122,6 +122,7 @@ public class Score : MonoBehaviour
 
         if (GM.p2Turn)
         {
+            loadSum(1);
             checkYacht(1);
             checkSingle(1);
             checkDouble(1);
@@ -129,15 +130,65 @@ public class Score : MonoBehaviour
             checkFour(1);
             checkFives(1);
             checkSixes(1);
-            bounus_sum(1);
             checkChance(1);
             checkFullH(1);
             checkFourK(1);
             checkSamllS(1);
             checkLargeS(1);
-            totalScore(1);
         }
 
+    }
+
+    static void loadSum(int player)
+    {
+        if(check[11] == 1)
+        {
+            yacht = int.Parse(sboard.transform.GetChild(player).GetChild(13).GetComponent<Text>().text);
+        }
+        if (check[10] == 1)
+        {
+            largestraight = int.Parse(sboard.transform.GetChild(player).GetChild(12).GetComponent<Text>().text);
+        }
+        if (check[9] == 1)
+        {
+            smallstraight = int.Parse(sboard.transform.GetChild(player).GetChild(11).GetComponent<Text>().text);
+        }
+        if (check[8] == 1)
+        {
+            fourofkind = int.Parse(sboard.transform.GetChild(player).GetChild(10).GetComponent<Text>().text);
+        }
+        if (check[7] == 1)
+        {
+            fullhouse = int.Parse(sboard.transform.GetChild(player).GetChild(9).GetComponent<Text>().text);
+        }
+        if (check[6] == 1)
+        {
+            chancesum = int.Parse(sboard.transform.GetChild(player).GetChild(8).GetComponent<Text>().text);
+        }
+        if (check[5] == 1)
+        {
+            sixessum = int.Parse(sboard.transform.GetChild(player).GetChild(5).GetComponent<Text>().text);
+        }
+        if (check[4] == 1)
+        {
+            fivessum = int.Parse(sboard.transform.GetChild(player).GetChild(4).GetComponent<Text>().text);
+        }
+        if (check[3] == 1)
+        {
+            foursum = int.Parse(sboard.transform.GetChild(player).GetChild(3).GetComponent<Text>().text);
+        }
+        if (check[2] == 1)
+        {
+            threesum = int.Parse(sboard.transform.GetChild(player).GetChild(2).GetComponent<Text>().text);
+        }
+        if (check[1] == 1)
+        {
+            doublesum = int.Parse(sboard.transform.GetChild(player).GetChild(1).GetComponent<Text>().text);
+        }
+        if (check[0] == 1)
+        {
+            singlesum = int.Parse(sboard.transform.GetChild(player).GetChild(0).GetComponent<Text>().text);
+        }
     }
 
     static void checkYacht(int player)
@@ -288,7 +339,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    static void bounus_sum(int player)
+    public static void bounus_sum(int player)
     {
         for (int i = 0; i < 6; i++)
         {
@@ -297,7 +348,7 @@ public class Score : MonoBehaviour
         if (sumcheck == 6)
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;
-            sboard.transform.GetChild(1).GetChild(6).GetComponent<Text>().text = sum.ToString();
+            sboard.transform.GetChild(player).GetChild(6).GetComponent<Text>().text = sum.ToString();
             if (sum >= 63)
             {
                 bonus = 35;
@@ -309,10 +360,7 @@ public class Score : MonoBehaviour
                 sboard.transform.GetChild(player).GetChild(7).GetComponent<Text>().text = bonus.ToString();
             }
         }
-        else
-        {
-            sumcheck = 0;
-        }
+        sumcheck = 0;
     }
 
     static void checkChance(int player)
@@ -352,7 +400,7 @@ public class Score : MonoBehaviour
                 }
             }
 
-            Debug.Log( houseChecker[0] + " , " + houseChecker[1] + " , " + houseChecker[2] + " , " + houseChecker[3] + " , " + houseChecker[4] + " , " + houseChecker[5] );
+            //Debug.Log( houseChecker[0] + " , " + houseChecker[1] + " , " + houseChecker[2] + " , " + houseChecker[3] + " , " + houseChecker[4] + " , " + houseChecker[5] );
 
             for (int x = 0; x < 6; x++)
             {
@@ -517,7 +565,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    static void totalScore(int player)
+    public static void totalScore(int player)
     {
         for (int i = 0; i < 12; i++)
         {
@@ -531,10 +579,6 @@ public class Score : MonoBehaviour
             total = sum + bonus + chancesum + fullhouse + fourofkind + smallstraight + largestraight + yacht;
             sboard.transform.GetChild(player).GetChild(14).GetComponent<Text>().text = chancesum.ToString();
         }
-        else
-        {
-            totalcheck = 0;
-        }
-
+        totalcheck = 0;
     }
 }

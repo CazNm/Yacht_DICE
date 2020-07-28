@@ -24,6 +24,20 @@ public class Roll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GM.p2Turn)
+        {
+            GetComponent<Button>().interactable = false;
+        }
+        /*
+        else
+        {
+            GetComponent<Button>().interactable = false;
+            if(GM.scoreBoard.GetComponent<OpenScoreBoard>().PIn == true)
+            {
+                GetComponent<Button>().interactable = false;
+            }
+        }
+        */
         buttonText.text = "Roll! (" + GM.r_count + ")";
 
         /*if (!GM.myTurn)
@@ -34,10 +48,10 @@ public class Roll : MonoBehaviour
     }   
     
     public void Rolling() {
-        
+
         GM.selec_phase = false;
         GM.start_phase = false;
-        
+
 
         //Debug.Log("rolling sequence");
 
@@ -46,5 +60,6 @@ public class Roll : MonoBehaviour
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
         GetComponent<Button>().interactable = false;
+
     }
 }
