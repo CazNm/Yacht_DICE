@@ -14,7 +14,7 @@ public class Roll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
 
         buttonText = GetComponentInChildren<Text>();
         buttonText.text = "Roll! (" + GM.r_count + ")";
@@ -45,9 +45,10 @@ public class Roll : MonoBehaviour
             //Debug.Log("false");
             GetComponent<Button>().interactable = false;
         }*/
-    }   
-    
-    public void Rolling() {
+    }
+
+    public void Rolling()
+    {
 
         GM.selec_phase = false;
         GM.start_phase = false;

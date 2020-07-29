@@ -34,6 +34,7 @@ public class OpenScoreBoard : MonoBehaviour
         {
             btn.interactable = false;
         }
+        btn.interactable = true;
     }
 
     public void LookPedigree()

@@ -273,7 +273,8 @@ public class CPULogic : MonoBehaviour
         }
         if (donecheck == 12)
         {
-            Debug.Log("DoneChecked");
+            Score.bounus_sum(1);
+            Score.totalScore(1);
             GM.myTurn = false;
             GM.p2Turn = false;
             GM.isdone = false;

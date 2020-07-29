@@ -30,6 +30,19 @@ public class GM : MonoBehaviour
     public static int[] ycheck = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public static int[] ccheck = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+    public static GameObject resultboard;
+    public static bool resulton = false;
+    public static int resultcount = 0;
+    int HostTotal = 0;
+    int ComTotal = 0;
+    GameObject HostNameText;
+    GameObject ComNameText;
+    GameObject HostTotalText;
+    GameObject ComTotalText;
+    GameObject WinnerNameText;
+    GameObject ResultText;
+    GameObject RestartButton;
+
     private static float timer;
     private static float wating_time;
     private static bool selecting = true;
@@ -49,6 +62,13 @@ public class GM : MonoBehaviour
 
     void Start()
     {
+        HostNameText = GameObject.Find("HostName");
+        ComNameText = GameObject.Find("ComName");
+        HostTotalText = GameObject.Find("HostTotal");
+        ComTotalText = GameObject.Find("ComTotal");
+        WinnerNameText = GameObject.Find("WinnerName");
+        ResultText = GameObject.Find("ResultText");
+        RestartButton = GameObject.Find("RestartButton");
 
         dice1 = GameObject.Find("dice1");
         dice2 = GameObject.Find("dice2");
@@ -66,6 +86,8 @@ public class GM : MonoBehaviour
 
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
+        resultboard = GameObject.Find("Result");
+        resultboard.SetActive(false);
 
     }
 
@@ -74,13 +96,80 @@ public class GM : MonoBehaviour
     {
         if (myTurn) userLogic();
         else if (p2Turn) unkLogic();
-        else Debug.Log("Done");
+        else resultSequence();
 
     }
 
     private void FixedUpdate()
     {
         //여기 항목 일단 삭제함 페이즈 별로 나눴는데 위에 주석 좀 더 자세하게 보면 좋을듯
+    }
+
+    void resultSequence()
+    {
+        if (!resulton)
+        {
+            resultboard.SetActive(true);
+
+            HostTotalText.GetComponent<Text>().text = GameObject.Find("YTotal").GetComponent<Text>().text;
+            ComTotalText.GetComponent<Text>().text = GameObject.Find("CTotal").GetComponent<Text>().text;
+            HostTotal = int.Parse(GameObject.Find("HostTotal").GetComponent<Text>().text);
+            ComTotal = int.Parse(GameObject.Find("ComTotal").GetComponent<Text>().text);
+
+            if (HostTotal > ComTotal)
+            {
+                WinnerNameText.GetComponent<Text>().text = HostNameText.GetComponent<Text>().text;
+                ResultText.GetComponent<Text>().text = "Win";
+            }
+            else if (ComTotal > HostTotal)
+            {
+                WinnerNameText.GetComponent<Text>().text = ComNameText.GetComponent<Text>().text;
+                ResultText.GetComponent<Text>().text = "Win";
+            }
+            else
+            {
+                WinnerNameText.GetComponent<Text>().text = "";
+                ResultText.GetComponent<Text>().text = "Draw";
+            }
+
+            HostNameText.SetActive(false);
+            ComNameText.SetActive(false);
+            HostTotalText.SetActive(false);
+            ComTotalText.SetActive(false);
+            WinnerNameText.SetActive(false);
+            ResultText.SetActive(false);
+            RestartButton.SetActive(false);
+            rollButton.interactable = false;
+            resulton = true;
+        }
+
+        timer += Time.deltaTime;
+        if (timer > wating_time * 2)
+        {
+            if (resultcount == 0)
+            {
+                HostNameText.SetActive(true);
+                ComNameText.SetActive(true);
+            }
+            if (resultcount == 1)
+            {
+                HostTotalText.SetActive(true);
+                ComTotalText.SetActive(true);
+            }
+            if (resultcount == 2)
+            {
+                WinnerNameText.SetActive(true);
+                ResultText.SetActive(true);
+            }
+            if (resultcount == 3)
+            {
+                RestartButton.SetActive(true);
+            }
+            Debug.Log("loop, " + resultcount);
+
+            resultcount += 1;
+            timer = 0;
+        }
     }
 
     void userLogic() 
@@ -159,6 +248,7 @@ public class GM : MonoBehaviour
             {
                 Score.p2Cal_sequence();
                 CPULogic.cpuCal_sequence();
+                comDiceReset();
             }
 
             if(r_count == 0 && isdone)
@@ -174,11 +264,13 @@ public class GM : MonoBehaviour
 
     void StartPhase() {
 
-        r_count = 3;
+        r_count = 1;
         semiResult = false;
         selec_phase = false;
         record_phase = false;
         start_phase = false;
+
+        diceReset();
 
         /*
         for (int i = 0; i < 5; i++)
@@ -216,7 +308,7 @@ public class GM : MonoBehaviour
             }
             rollButton.interactable = true;
         }
-        else
+        else if(p2Turn)
         {
             GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
             GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
@@ -228,6 +320,7 @@ public class GM : MonoBehaviour
             {
                 keep[i] = false;
             }
+
             for (int i = 0; i < 12; i++)
             {
                 ycheck[i] = Score.check[i];
@@ -362,5 +455,58 @@ public class GM : MonoBehaviour
             button.GetComponent<Button>().interactable = true;
         }
         
+    }
+
+    public void diceReset()
+    {
+        dice1.GetComponent<DiceScript>().PosReset();
+        dice2.GetComponent<DiceScript>().PosReset();
+        dice3.GetComponent<DiceScript>().PosReset();
+        dice4.GetComponent<DiceScript>().PosReset();
+        dice5.GetComponent<DiceScript>().PosReset();
+    }
+
+    public void comDiceReset()
+    {
+        if (!keep[0])
+        {
+            dice1.GetComponent<DiceScript>().PosReset();
+        }
+        else
+        {
+            dice1.GetComponent<Rigidbody>().useGravity = false;
+        }
+        if (!keep[1])
+        {
+            dice2.GetComponent<DiceScript>().PosReset();
+        }
+        else
+        {
+            dice2.GetComponent<Rigidbody>().useGravity = false;
+        }
+        if (!keep[2])
+        {
+            dice3.GetComponent<DiceScript>().PosReset();
+        }
+        else
+        {
+            dice3.GetComponent<Rigidbody>().useGravity = false;
+        }
+        if (!keep[3])
+        {
+            dice4.GetComponent<DiceScript>().PosReset();
+        }
+        else
+        {
+            dice4.GetComponent<Rigidbody>().useGravity = false;
+        }
+        if (!keep[4])
+        {
+            dice5.GetComponent<DiceScript>().PosReset();
+        }
+        else
+        {
+            dice5.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 }

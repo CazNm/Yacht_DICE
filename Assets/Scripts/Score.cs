@@ -139,7 +139,7 @@ public class Score : MonoBehaviour
 
     }
 
-    static void loadSum(int player)
+    public static void loadSum(int player)
     {
         if(check[11] == 1)
         {
@@ -165,30 +165,43 @@ public class Score : MonoBehaviour
         {
             chancesum = int.Parse(sboard.transform.GetChild(player).GetChild(8).GetComponent<Text>().text);
         }
-        if (check[5] == 1)
+
+        for (int i = 0; i < 6; i++)
         {
-            sixessum = int.Parse(sboard.transform.GetChild(player).GetChild(5).GetComponent<Text>().text);
+            if (check[i] == 1) sumcheck += 1;
         }
-        if (check[4] == 1)
+        if (sumcheck == 6)
         {
-            fivessum = int.Parse(sboard.transform.GetChild(player).GetChild(4).GetComponent<Text>().text);
+            sum = int.Parse(sboard.transform.GetChild(player).GetChild(6).GetComponent<Text>().text);
         }
-        if (check[3] == 1)
+        else
         {
-            foursum = int.Parse(sboard.transform.GetChild(player).GetChild(3).GetComponent<Text>().text);
+            if (check[5] == 1)
+            {
+                sixessum = int.Parse(sboard.transform.GetChild(player).GetChild(5).GetComponent<Text>().text);
+            }
+            if (check[4] == 1)
+            {
+                fivessum = int.Parse(sboard.transform.GetChild(player).GetChild(4).GetComponent<Text>().text);
+            }
+            if (check[3] == 1)
+            {
+                foursum = int.Parse(sboard.transform.GetChild(player).GetChild(3).GetComponent<Text>().text);
+            }
+            if (check[2] == 1)
+            {
+                threesum = int.Parse(sboard.transform.GetChild(player).GetChild(2).GetComponent<Text>().text);
+            }
+            if (check[1] == 1)
+            {
+                doublesum = int.Parse(sboard.transform.GetChild(player).GetChild(1).GetComponent<Text>().text);
+            }
+            if (check[0] == 1)
+            {
+                singlesum = int.Parse(sboard.transform.GetChild(player).GetChild(0).GetComponent<Text>().text);
+            }
         }
-        if (check[2] == 1)
-        {
-            threesum = int.Parse(sboard.transform.GetChild(player).GetChild(2).GetComponent<Text>().text);
-        }
-        if (check[1] == 1)
-        {
-            doublesum = int.Parse(sboard.transform.GetChild(player).GetChild(1).GetComponent<Text>().text);
-        }
-        if (check[0] == 1)
-        {
-            singlesum = int.Parse(sboard.transform.GetChild(player).GetChild(0).GetComponent<Text>().text);
-        }
+        sumcheck = 0;
     }
 
     static void checkYacht(int player)
@@ -345,7 +358,7 @@ public class Score : MonoBehaviour
         {
             if (check[i] == 1) sumcheck += 1;
         }
-        if (sumcheck == 6)
+        if (sumcheck == 6 && sboard.transform.GetChild(player).GetChild(6).GetComponent<Text>().text == "")
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;
             sboard.transform.GetChild(player).GetChild(6).GetComponent<Text>().text = sum.ToString();
@@ -574,10 +587,10 @@ public class Score : MonoBehaviour
                 totalcheck += 1;
             }
         }
-        if (totalcheck == 12)
+        if (totalcheck == 12 && sboard.transform.GetChild(player).GetChild(14).GetComponent<Text>().text == "")
         {
             total = sum + bonus + chancesum + fullhouse + fourofkind + smallstraight + largestraight + yacht;
-            sboard.transform.GetChild(player).GetChild(14).GetComponent<Text>().text = chancesum.ToString();
+            sboard.transform.GetChild(player).GetChild(14).GetComponent<Text>().text = total.ToString();
         }
         totalcheck = 0;
     }

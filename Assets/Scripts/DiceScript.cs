@@ -90,4 +90,9 @@ public class DiceScript : MonoBehaviour {
 		rb.AddTorque(new Vector3 (dirX, dirY, dirZ) );
 
 	}
+
+	public void PosReset()
+    {
+		transform.position = resultPos;
+	}
 }
