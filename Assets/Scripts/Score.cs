@@ -161,13 +161,13 @@ public class Score : MonoBehaviour
                 if (checkyacht[i] == 5)
                 {
                     yacht = 50;
-                    sboard.transform.GetChild(player).GetChild(13).GetComponent<Text>().text = yacht.ToString();
+                    GM.scoreRecord[11] = yacht;
                     break;
                 }
                 else
                 {
                     yacht = 0;
-                    sboard.transform.GetChild(player).GetChild(13).GetComponent<Text>().text = yacht.ToString();
+                    GM.scoreRecord[11] = yacht;
                 }
             }
         }
@@ -183,12 +183,12 @@ public class Score : MonoBehaviour
             if (Dnum3 == 1) singlesum += Dnum3;
             if (Dnum4 == 1) singlesum += Dnum4;
             if (Dnum5 == 1) singlesum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(0).GetComponent<Text>().text = singlesum.ToString();
+            GM.scoreRecord[0] = singlesum;
         }
         else if ((Dnum1 != 1 && Dnum2 != 1 && Dnum3 != 1 && Dnum4 != 1 && Dnum5 != 1) && check[0] == 0)
         {
             singlesum = 0;
-            sboard.transform.GetChild(player).GetChild(0).GetComponent<Text>().text = singlesum.ToString();
+            GM.scoreRecord[0] = singlesum;
         }
     }
 
@@ -202,13 +202,13 @@ public class Score : MonoBehaviour
             if (Dnum3 == 2) doublesum += Dnum3;
             if (Dnum4 == 2) doublesum += Dnum4;
             if (Dnum5 == 2) doublesum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(1).GetComponent<Text>().text = doublesum.ToString();
+            GM.scoreRecord[1] = doublesum;
         }
         else if ((Dnum1 != 2 && Dnum2 != 2 && Dnum3 != 2 && Dnum4 != 2 && Dnum5 != 2) && check[1] == 0)
         {
             doublesum = 0;
-            sboard.transform.GetChild(player).GetChild(1).GetComponent<Text>().text = doublesum.ToString();
-        }
+            GM.scoreRecord[1] = doublesum;
+         }
     }
 
     static void checkThree(int player)
@@ -221,12 +221,12 @@ public class Score : MonoBehaviour
             if (Dnum3 == 3) threesum += Dnum3;
             if (Dnum4 == 3) threesum += Dnum4;
             if (Dnum5 == 3) threesum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(2).GetComponent<Text>().text = threesum.ToString();
+            GM.scoreRecord[2] = threesum;
         }
         else if ((Dnum1 != 3 && Dnum2 != 3 && Dnum3 != 3 && Dnum4 != 3 && Dnum5 != 3) && check[2] == 0)
         {
             threesum = 0;
-            sboard.transform.GetChild(player).GetChild(2).GetComponent<Text>().text = threesum.ToString();
+            GM.scoreRecord[2] = threesum;
         }
 
     }
@@ -241,12 +241,12 @@ public class Score : MonoBehaviour
             if (Dnum3 == 4) foursum += Dnum3;
             if (Dnum4 == 4) foursum += Dnum4;
             if (Dnum5 == 4) foursum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(3).GetComponent<Text>().text = foursum.ToString();
+            GM.scoreRecord[3] = foursum;
         }
         else if ((Dnum1 != 4 && Dnum2 != 4 && Dnum3 != 4 && Dnum4 != 4 && Dnum5 != 4) && check[3] == 0)
         {
             foursum = 0;
-            sboard.transform.GetChild(player).GetChild(3).GetComponent<Text>().text = foursum.ToString();
+            GM.scoreRecord[3] = foursum;
         }
     }
 
@@ -260,12 +260,12 @@ public class Score : MonoBehaviour
             if (Dnum3 == 5) fivessum += Dnum3;
             if (Dnum4 == 5) fivessum += Dnum4;
             if (Dnum5 == 5) fivessum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(4).GetComponent<Text>().text = fivessum.ToString();
+            GM.scoreRecord[4] = fivessum;
         }
         else if ((Dnum1 != 5 && Dnum2 != 5 && Dnum3 != 5 && Dnum4 != 5 && Dnum5 != 5) && check[4] == 0)
         {
             fivessum = 0;
-            sboard.transform.GetChild(player).GetChild(4).GetComponent<Text>().text = fivessum.ToString();
+            GM.scoreRecord[4] = fivessum;
         }
     }
 
@@ -279,12 +279,12 @@ public class Score : MonoBehaviour
             if (Dnum3 == 6) sixessum += Dnum3;
             if (Dnum4 == 6) sixessum += Dnum4;
             if (Dnum5 == 6) sixessum += Dnum5;
-            sboard.transform.GetChild(player).GetChild(5).GetComponent<Text>().text = sixessum.ToString();
+            GM.scoreRecord[5] = sixessum;
         }
         else if ((Dnum1 != 6 && Dnum2 != 6 && Dnum3 != 6 && Dnum4 != 6 && Dnum5 != 6) && check[5] == 0)
         {
             sixessum = 0;
-            sboard.transform.GetChild(player).GetChild(5).GetComponent<Text>().text = sixessum.ToString();
+            GM.scoreRecord[5] = sixessum;
         }
     }
 
@@ -297,16 +297,16 @@ public class Score : MonoBehaviour
         if (sumcheck == 6)
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;
-            sboard.transform.GetChild(1).GetChild(6).GetComponent<Text>().text = sum.ToString();
+           // GM.scoreRecord[6] = sum;
             if (sum >= 63)
             {
                 bonus = 35;
-                sboard.transform.GetChild(player).GetChild(7).GetComponent<Text>().text = bonus.ToString();
+               // GM.scoreRecord[7] = bonus;
             }
             else
             {
                 bonus = 0;
-                sboard.transform.GetChild(player).GetChild(7).GetComponent<Text>().text = bonus.ToString();
+               // GM.scoreRecord[7] = bonus;
             }
         }
         else
@@ -320,7 +320,7 @@ public class Score : MonoBehaviour
         if (check[6] == 0)
         {
             chancesum = Dnum1 + Dnum2 + Dnum3 + Dnum4 + Dnum5;
-            sboard.transform.GetChild(player).GetChild(8).GetComponent<Text>().text = chancesum.ToString();
+            GM.scoreRecord[6] = chancesum;
         }
     }
 
@@ -366,13 +366,13 @@ public class Score : MonoBehaviour
             {
                 Debug.Log("Full House!");
                 fullhouse = Dnum1 + Dnum2 + Dnum3 + Dnum4 + Dnum5;
-                sboard.transform.GetChild(player).GetChild(9).GetComponent<Text>().text = fullhouse.ToString();
+                GM.scoreRecord[7] = fullhouse;
 
             }
             else
             {
                 fullhouse = 0;
-                sboard.transform.GetChild(player).GetChild(9).GetComponent<Text>().text = fullhouse.ToString();
+                GM.scoreRecord[7] = fullhouse;
             }
 
         }
@@ -387,13 +387,13 @@ public class Score : MonoBehaviour
                 if (checkyacht[i] >= 4)
                 {
                     fourofkind = Dnum1 + Dnum2 + Dnum3 + Dnum4 + Dnum5;
-                    sboard.transform.GetChild(player).GetChild(10).GetComponent<Text>().text = fourofkind.ToString();
+                    GM.scoreRecord[8] = fourofkind;
                     break;
                 }
                 else
                 {
                     fourofkind = 0;
-                    sboard.transform.GetChild(player).GetChild(10).GetComponent<Text>().text = fourofkind.ToString();
+                    GM.scoreRecord[8] = fourofkind;
                 }
             }
         }
@@ -456,12 +456,12 @@ public class Score : MonoBehaviour
             if (checkssb)
             {
                 smallstraight = 20;
-                sboard.transform.GetChild(player).GetChild(11).GetComponent<Text>().text = smallstraight.ToString();
+                GM.scoreRecord[9] = smallstraight;
             }
             else
             {
                 smallstraight = 0;
-                sboard.transform.GetChild(player).GetChild(11).GetComponent<Text>().text = smallstraight.ToString();
+                GM.scoreRecord[9] = smallstraight;
             }
         }
     }
@@ -507,12 +507,12 @@ public class Score : MonoBehaviour
             if (checklsb)
             {
                 largestraight = 30;
-                sboard.transform.GetChild(player).GetChild(12).GetComponent<Text>().text = largestraight.ToString();
+                GM.scoreRecord[10] = largestraight;
             }
             else
             {
                 largestraight = 0;
-                sboard.transform.GetChild(player).GetChild(12).GetComponent<Text>().text = largestraight.ToString();
+                GM.scoreRecord[10] = largestraight;
             }
         }
     }
@@ -529,7 +529,7 @@ public class Score : MonoBehaviour
         if (totalcheck == 12)
         {
             total = sum + bonus + chancesum + fullhouse + fourofkind + smallstraight + largestraight + yacht;
-            sboard.transform.GetChild(player).GetChild(14).GetComponent<Text>().text = chancesum.ToString();
+           // GM.scoreRecord[14] = total;
         }
         else
         {

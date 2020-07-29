@@ -28,21 +28,18 @@ public class Roll : MonoBehaviourPun
         {
             //Debug.Log("false");
             GetComponent<Button>().interactable = false;
+            //gameObject.SetActive (false);
         }
+        else GetComponent<Button>().interactable = true;
     }   
     
     public void Rolling() {
 
-        GM.selec_phase = false;
-        GM.start_phase = false;
-
+        Debug.Log("Roll by button");
+        
         GameObject.Find("GameManager").GetComponent<GM>().sendPhase();
         //Debug.Log("rolling sequence");
         GameObject.Find("GameManager").GetComponent<GM>().sendRoll();
-       
-        GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
-        GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
-
-        GetComponent<Button>().interactable = false;
+        //GetComponent<Button>().interactable = false;
     }
 }

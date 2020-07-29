@@ -11,7 +11,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static int playerIndex;
     public static int otherIndex;
     public GameObject[] dices = new GameObject[5];
-    public GameObject player;
+    //public GameObject player;
 
     public static int r_count;
     public static int round;
@@ -19,6 +19,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool p2Turn;
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static int[] diceScore = { 0, 0, 0, 0, 0 };
+    public static int[] scoreRecord = new int[12];
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
@@ -28,12 +29,8 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool semiResult = false;
     public static bool selec_phase = false;
     public static bool record_phase = false;
+    public static bool rolling_phase = false;
 
-
-    private static int com_roll;
-
-    private static float timer;
-    private static float wating_time;
  
     GameObject dice1;
     GameObject dice2;
@@ -53,16 +50,18 @@ public class GM : MonoBehaviourPunCallbacks
     void Start()
     {
         start_game = true;
-        timer = 0.0f;
-        wating_time = 0.0f;
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
         photonview = PhotonView.Get(this);
+        r_count = 3;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if ( myTurn ) { sendPhase(); }
 
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         
@@ -73,6 +72,7 @@ public class GM : MonoBehaviourPunCallbacks
         }*/
 
         if (start_game) {
+            rollButton.interactable = true;
             spawnDice();
             setTurn();
             Debug.Log(playerIndex);
@@ -100,15 +100,16 @@ public class GM : MonoBehaviourPunCallbacks
         if (!myTurn) {
             rollButton.interactable = false;
             scoreBoard.GetComponent<Button>().interactable = false;
+            return;
         } // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
 
-        mainLogic();
-        
+        // mainLogic();
+        if (r_count == 0) { photonView.RPC("ChangeTurn", RpcTarget.All, "!!"); }
     }
 
 
     void spawnDice() {
-        PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
+       // PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
         if (!PhotonNetwork.IsMasterClient) { return; }
         for (int x = 0; x < 5; x++) {
             PhotonNetwork.Instantiate(dices[x].name, dices[x].GetComponent<DiceScript>().resultPos, Quaternion.Euler(0, 0, 0));
@@ -131,18 +132,19 @@ public class GM : MonoBehaviourPunCallbacks
 
     void mainLogic() {
         if (start_phase) { StartPhase(); } //시작페이즈 진입 코드
-        if (!myTurn) { return; }
-        Debug.Log("checkr 1");
+        //if (!myTurn) { return; }
+       // Debug.Log("checkr 1");
         if (diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
-            Debug.Log("checkr 2");
+            //Debug.Log("checkr 2");
+            rolling_phase = false;
             selec_phase = true;
             sendPhase();
-            timer += Time.deltaTime;
             allKeep();
             if (semiResult)
             {
                 Score.myCal_sequence();
+                photonView.RPC("syncRecord",RpcTarget.All ,scoreRecord);
                 Debug.Log("count checker");
 
                 semiResult = false;
@@ -153,7 +155,6 @@ public class GM : MonoBehaviourPunCallbacks
             {
                 selectPhase();
                 GM.scoreBoard.GetComponent<Button>().interactable = true;
-                timer = 0;
             }
             else //기록 페이즈 진입
             {
@@ -173,7 +174,7 @@ public class GM : MonoBehaviourPunCallbacks
 
         Debug.Log("start phase");
 
-        r_count = 3;
+        r_count = 4;
         semiResult = false;
         selec_phase = false;
         record_phase = false;
@@ -181,17 +182,25 @@ public class GM : MonoBehaviourPunCallbacks
         diceStop = new bool[5] { false, false, false, false, false};
         keep = new bool[5] { false, false, false, false, false };
 
-        dice1.GetComponent<Rigidbody>().useGravity = false;
-        dice2.GetComponent<Rigidbody>().useGravity = false;
-        dice3.GetComponent<Rigidbody>().useGravity = false;
-        dice4.GetComponent<Rigidbody>().useGravity = false;
-        dice5.GetComponent<Rigidbody>().useGravity = false;
+        if (PhotonNetwork.IsMasterClient) {
+            dice1.GetComponent<Rigidbody>().useGravity = false;
+            dice2.GetComponent<Rigidbody>().useGravity = false;
+            dice3.GetComponent<Rigidbody>().useGravity = false;
+            dice4.GetComponent<Rigidbody>().useGravity = false;
+            dice5.GetComponent<Rigidbody>().useGravity = false;
+        }
+        
 
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
 
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
-        rollButton.interactable = true;
-        scoreBoard.GetComponent<Button>().interactable = false;
+        
+        if (!myTurn) { rollButton.interactable = false; }
+        else { 
+            rollButton.interactable = true;
+            GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
+        }
+        //scoreBoard.GetComponent<Button>().interactable = false;
 
     }
 
@@ -209,39 +218,54 @@ public class GM : MonoBehaviourPunCallbacks
     public void Rolldice()
     {
 
+        selec_phase = false;
+        start_phase = false;
+        rolling_phase = true;
+        r_count -= 1;
+        GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
+
+       
+
         if (!PhotonNetwork.IsMasterClient) {
             return;
         } // Rolldice() 호출시에 마스터 클라이 언트에서 주사위를 굴리도록 함
 
-        Debug.Log("Master rolling");
+        Debug.Log("Local rolling");
         if (GM.r_count > 0)
         {
+           
             if (!keep[0])
             {
+                Debug.Log(r_count+"1");
                 dice1.GetComponent<DiceScript>().Reroll();
                 diceStop[0] = false;
                 dice1.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[1])
             {
+                Debug.Log(r_count+"2");
                 dice2.GetComponent<DiceScript>().Reroll();
                 diceStop[1] = false;
                 dice2.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[2])
             {
+                Debug.Log(r_count + "3");
                 dice3.GetComponent<DiceScript>().Reroll();
                 diceStop[2] = false;
                 dice3.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[3])
             {
+                Debug.Log(r_count+ "4");
                 dice4.GetComponent<DiceScript>().Reroll();
                 diceStop[3] = false;
                 dice4.GetComponent<Rigidbody>().useGravity = true;
             }
             if (!keep[4])
             {
+                Debug.Log(r_count + "5");
                 dice5.GetComponent<DiceScript>().Reroll();
                 diceStop[4] = false;
                 dice5.GetComponent<Rigidbody>().useGravity = true;
@@ -249,7 +273,6 @@ public class GM : MonoBehaviourPunCallbacks
 
             semiResult = true;
             sendPhase();
-            GM.r_count -= 1;
         }
     }
 
@@ -273,18 +296,18 @@ public class GM : MonoBehaviourPunCallbacks
 
    public void KeepSelect(GameObject button)
     {
-        Debug.Log("select logic");
+       // Debug.Log("select logic");
         bool state_check = button.GetComponent<selector>().keep;
         if (!state_check)
         {
-            Debug.Log("keep!");
+          //  Debug.Log("keep!");
             button.GetComponent<selector>().keep = true;
             button.GetComponent<Button>().interactable = false;
             button.GetComponent<Button>().interactable = true;
             sendPhase();
         }
         else {
-            Debug.Log("Ready to roll");
+        //    Debug.Log("Ready to roll");
             button.GetComponent<selector>().keep = false;
             button.GetComponent<Button>().interactable = false;
             button.GetComponent<Button>().interactable = true;
@@ -299,7 +322,7 @@ public class GM : MonoBehaviourPunCallbacks
 
     public void sendPhase() {
         PhotonView photonview = PhotonView.Get(this);
-        photonview.RPC("syncPhase", RpcTarget.All, start_phase, semiResult, selec_phase, record_phase, keep);
+        photonview.RPC("syncPhase", RpcTarget.All, start_phase, semiResult, selec_phase, record_phase, rolling_phase ,keep);
     }
 
     public void sendPoint() {
@@ -308,14 +331,15 @@ public class GM : MonoBehaviourPunCallbacks
     }
 
     public void sendRoll() {
-        Debug.Log("RPC ROll");
+       // Debug.Log("RPC ROll");
         photonView.RPC("Rolldice", RpcTarget.All);
     }
 
     [PunRPC]
     public void ChangeTurn(string message) {
-        Debug.Log(message);
+        //   Debug.Log(message);
 
+        r_count = 3;
         if (myTurn) { 
             myTurn = false;
             GM.record_phase = false;
@@ -325,6 +349,14 @@ public class GM : MonoBehaviourPunCallbacks
             myTurn = true;
             GM.record_phase = false;
             GM.start_phase = true;
+        }
+    }
+
+    [PunRPC]
+    public void syncRecord(int[] recordScore) {
+        if (myTurn) { return; }
+        for (int x = 0; x < 12; x++) {
+            GM.scoreRecord[x] = recordScore[x];
         }
     }
     
@@ -343,8 +375,8 @@ public class GM : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void syncPhase(bool startSync, bool semiSync, bool selecSync, bool recordSync, bool [] keepSync) {
-        Debug.Log("sync turn state");
+    public void syncPhase(bool startSync, bool semiSync, bool selecSync, bool recordSync,bool rollSync, bool [] keepSync) {
+    //    Debug.Log("sync turn state");
 
         if (myTurn) {
             return;
@@ -354,6 +386,9 @@ public class GM : MonoBehaviourPunCallbacks
         semiResult = semiSync;
         selec_phase = selecSync;
         record_phase = recordSync;
+        rolling_phase = rollSync;
+
+        Debug.Log(startSync + " / " + semiSync + " / " + selecSync + " / " + recordSync + " / " + rollSync);
 
         for (int x = 0; x < keep.Length; x++) {
             keep[x] = keepSync[x];

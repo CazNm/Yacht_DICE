@@ -47,8 +47,6 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 		
 
 		if (!photonView.IsMine) {
-			
-
 			rb.isKinematic = true;
 			return; 
 		}
@@ -86,6 +84,9 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);
         }
 
+		/*
+		if (GM.rolling_phase) { return; }
+
 		if (GM.start_phase) {
 			transform.position = resultPos;
 		} //턴 시작 페이즈 주사위 위치
@@ -112,12 +113,13 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
 			//다이스를 킵한 상태이고 셀렉트 페이즈가 아닐 때 그냥 주사위 굴러갈때 킵한거임.
 		}
-
+		*/
 
 	}
 
 	public void Reroll() {
 
+		Debug.Log("rool");
 		diceVelocity = rb.velocity;
 
 		float dirX = Random.Range(0, 500);

@@ -14,6 +14,7 @@ public class inputScore : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        
         photonview = PhotonView.Get(this);
     }
 
@@ -21,7 +22,10 @@ public class inputScore : MonoBehaviourPun
     void Update()
     {
         if (!GM.myTurn) { GetComponent<Button>().interactable = false; }
-        else { GetComponent<Button>().interactable = true; }
+        else {
+            GetComponent<Text>().text = GM.scoreRecord[scoreType].ToString();
+            GetComponent<Button>().interactable = true; 
+        }
     }
 
     public void iScore(GameObject self) {
