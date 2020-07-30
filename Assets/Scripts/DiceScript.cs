@@ -84,35 +84,39 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);
         }
 
+		//위치 설정 코드
+		if (GM.keep[dice_no] && GM.selec_phase)
+		{
+			diceResult = GM.diceScore[dice_no];
+			transform.position = new Vector3(resultPos.x, resultPos.y, 3.8f);
+			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
+
+		} // 다이스가 킵이고 셀렉트 페이즈 일때
+
+		if (!GM.keep[dice_no] && GM.selec_phase)
+		{
+			diceResult = GM.diceScore[dice_no];
+			transform.position = resultPos;
+			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
+
+		}// 다이스를 킵하지 않은 상태이고 셀렉트 페이즈 일때
+
+		if (GM.record_phase || (GM.keep[dice_no] && !GM.selec_phase))
+		{
+			diceResult = GM.diceScore[dice_no];
+			transform.position = new Vector3(resultPos.x, resultPos.y, 5.5f);
+			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
+			//다이스를 킵한 상태이고 셀렉트 페이즈가 아닐 때 그냥 주사위 굴러갈때 킵한거임.
+		}
+
 		/*
+
 		if (GM.rolling_phase) { return; }
 
 		if (GM.start_phase) {
 			transform.position = resultPos;
 		} //턴 시작 페이즈 주사위 위치
 
-
-		//위치 설정 코드
-		if (GM.keep[dice_no] && GM.selec_phase) {
-			diceResult = GM.diceScore[dice_no];
-			transform.position = new Vector3(resultPos.x, resultPos.y, 3.8f);
-			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
-			
-		} // 다이스가 킵이고 셀렉트 페이즈 일때
-
-		if (!GM.keep[dice_no] && GM.selec_phase) {
-			diceResult = GM.diceScore[dice_no];
-			transform.position = resultPos;
-			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
-			
-		}// 다이스를 킵하지 않은 상태이고 셀렉트 페이즈 일때
-		 
-		if (GM.record_phase || (GM.keep[dice_no] && !GM.selec_phase)) {
-			diceResult = GM.diceScore[dice_no];
-			transform.position = new Vector3(resultPos.x, resultPos.y, 5.5f);
-			transform.rotation = Quaternion.Euler(GM.rotation[diceResult - 1]);
-			//다이스를 킵한 상태이고 셀렉트 페이즈가 아닐 때 그냥 주사위 굴러갈때 킵한거임.
-		}
 		*/
 
 	}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,10 +35,12 @@ public class DiceCheckZoneScript : MonoBehaviour {
 
 		if (diceVel.x == 0f && diceVel.y == 0f && diceVel.z == 0f && col.gameObject.transform.parent.name == Dice)
 		{
+			if (!PhotonNetwork.IsMasterClient) { return; }
 			//Debug.Log( "Dice" + (dice_no + 1) + "stopped");
 			int diceNo = dice_no;
 
 			GM.diceStop[diceNo] = true;
+			GameObject.Find("GameManager").GetComponent<GM>().sendStop(GM.diceStop[diceNo], diceNo);
 			switch (col.gameObject.name)
 			{
 				case "Side1":

@@ -34,12 +34,12 @@ public class Roll : MonoBehaviourPun
     }   
     
     public void Rolling() {
-
+        GM.selec_phase = false;
         Debug.Log("Roll by button");
         
         GameObject.Find("GameManager").GetComponent<GM>().sendPhase();
         //Debug.Log("rolling sequence");
         GameObject.Find("GameManager").GetComponent<GM>().sendRoll();
-        //GetComponent<Button>().interactable = false;
+        GetComponent<Button>().interactable = false;
     }
 }
