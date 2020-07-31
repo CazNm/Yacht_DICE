@@ -103,16 +103,18 @@ public class GM : MonoBehaviourPunCallbacks
         }
         // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
 
-
         if (start_phase) { 
             StartPhase();
             return;
         }
+
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
+            rollButton.interactable = true;
             selec_phase = true;
 
+            
         }
         // mainLogic();
         if (r_count == 0) { photonView.RPC("ChangeTurn", RpcTarget.All, "!!"); }
@@ -165,9 +167,14 @@ public class GM : MonoBehaviourPunCallbacks
 
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(true);
         
-        if (!myTurn) { rollButton.interactable = false; }
+        if (!myTurn) { 
+            rollButton.interactable = false;
+            scoreBoard.GetComponent<Button>().interactable = false;
+
+        }
         else { 
             rollButton.interactable = true;
+            scoreBoard.GetComponent<Button>().interactable = true;
             GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
         }
         //scoreBoard.GetComponent<Button>().interactable = false;
@@ -187,15 +194,12 @@ public class GM : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Rolldice()
     {
-
         selec_phase = false;
         start_phase = false;
         rolling_phase = true;
         r_count -= 1;
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
-
-       
 
         // Rolldice() 호출시에 마스터 클라이 언트에서 주사위를 굴리도록 함
 
@@ -346,7 +350,7 @@ public class GM : MonoBehaviourPunCallbacks
     [PunRPC]
     public void syncPoint(int dice1, int dice2 , int dice3, int dice4, int dice5) {
 
-        if (myTurn) { return; }
+        if (PhotonNetwork.IsMasterClient) { return; }
 
         diceScore[0] = dice1;
         diceScore[1] = dice2;

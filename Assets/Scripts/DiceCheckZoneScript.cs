@@ -19,6 +19,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 		diceVelocity3 = GameObject.Find("dice3(Clone)").GetComponent<DiceScript>().diceVelocity;
 		diceVelocity4 = GameObject.Find("dice4(Clone)").GetComponent<DiceScript>().diceVelocity;
 		diceVelocity5 = GameObject.Find("dice5(Clone)").GetComponent<DiceScript>().diceVelocity;
+		if (PhotonNetwork.IsMasterClient) { GameObject.Find("GameManager").GetComponent<GM>().sendPoint(); }
 	}
 
 	void OnTriggerStay(Collider col)

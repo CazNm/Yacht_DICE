@@ -30,6 +30,7 @@ public class DiceNumberTextScript : MonoBehaviour {
 		}
 		else { 
 			text.text = "상대가 플레이 중 입니다...";
+			
 			return;
 		}
 		if (GM.start_phase) { text.text = "Your Turn!"; }
