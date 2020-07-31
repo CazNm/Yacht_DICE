@@ -134,8 +134,6 @@ GameObject:
   - component: {fileID: 29755882}
   - component: {fileID: 29755884}
   - component: {fileID: 29755885}
-  - component: {fileID: 29755887}
-  - component: {fileID: 29755886}
   m_Layer: 5
   m_Name: YFour
   m_TagString: Untagged
@@ -270,43 +268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 3
---- !u!114 &29755886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29755880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &29755887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29755880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 29755886}
-  viewIdField: 6
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &41277134
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,8 +359,6 @@ GameObject:
   - component: {fileID: 41826267}
   - component: {fileID: 41826269}
   - component: {fileID: 41826270}
-  - component: {fileID: 41826272}
-  - component: {fileID: 41826271}
   m_Layer: 5
   m_Name: YDouble
   m_TagString: Untagged
@@ -534,43 +493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 1
---- !u!114 &41826271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41826265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &41826272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41826265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 41826271}
-  viewIdField: 4
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &59301943
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,8 +506,6 @@ GameObject:
   - component: {fileID: 59301945}
   - component: {fileID: 59301947}
   - component: {fileID: 59301948}
-  - component: {fileID: 59301950}
-  - component: {fileID: 59301949}
   m_Layer: 5
   m_Name: YFullhouse
   m_TagString: Untagged
@@ -720,43 +640,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 7
---- !u!114 &59301949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59301943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &59301950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59301943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 59301949}
-  viewIdField: 10
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &70164913
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,8 +653,6 @@ GameObject:
   - component: {fileID: 70164915}
   - component: {fileID: 70164917}
   - component: {fileID: 70164918}
-  - component: {fileID: 70164920}
-  - component: {fileID: 70164919}
   m_Layer: 5
   m_Name: YYacht
   m_TagString: Untagged
@@ -906,43 +787,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 11
---- !u!114 &70164919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70164913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &70164920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70164913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 70164919}
-  viewIdField: 14
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &100088022
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,8 +800,6 @@ GameObject:
   - component: {fileID: 100088024}
   - component: {fileID: 100088026}
   - component: {fileID: 100088027}
-  - component: {fileID: 100088029}
-  - component: {fileID: 100088028}
   m_Layer: 5
   m_Name: YSmallstraight
   m_TagString: Untagged
@@ -1092,43 +934,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 9
---- !u!114 &100088028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100088022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &100088029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100088022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 100088028}
-  viewIdField: 12
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &123623070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,8 +1178,6 @@ GameObject:
   - component: {fileID: 170146514}
   - component: {fileID: 170146516}
   - component: {fileID: 170146517}
-  - component: {fileID: 170146519}
-  - component: {fileID: 170146518}
   m_Layer: 5
   m_Name: YChane
   m_TagString: Untagged
@@ -1509,43 +1312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 6
---- !u!114 &170146518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170146512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &170146519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170146512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 170146518}
-  viewIdField: 9
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &177800794
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,8 +1325,6 @@ GameObject:
   - component: {fileID: 177800796}
   - component: {fileID: 177800798}
   - component: {fileID: 177800799}
-  - component: {fileID: 177800801}
-  - component: {fileID: 177800800}
   m_Layer: 5
   m_Name: YLargestraight
   m_TagString: Untagged
@@ -1695,43 +1459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 10
---- !u!114 &177800800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177800794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &177800801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177800794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 177800800}
-  viewIdField: 13
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &179253490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,8 +2709,6 @@ GameObject:
   - component: {fileID: 597495652}
   - component: {fileID: 597495654}
   - component: {fileID: 597495655}
-  - component: {fileID: 597495657}
-  - component: {fileID: 597495656}
   m_Layer: 5
   m_Name: YSixes
   m_TagString: Untagged
@@ -3118,43 +2843,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 5
---- !u!114 &597495656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597495650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &597495657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597495650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 597495656}
-  viewIdField: 8
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &645294511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,8 +2856,6 @@ GameObject:
   - component: {fileID: 645294513}
   - component: {fileID: 645294515}
   - component: {fileID: 645294516}
-  - component: {fileID: 645294518}
-  - component: {fileID: 645294517}
   m_Layer: 5
   m_Name: YThree
   m_TagString: Untagged
@@ -3304,43 +2990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 2
---- !u!114 &645294517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 645294511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &645294518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 645294511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 645294517}
-  viewIdField: 5
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &758903974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,8 +3003,6 @@ GameObject:
   - component: {fileID: 758903976}
   - component: {fileID: 758903978}
   - component: {fileID: 758903979}
-  - component: {fileID: 758903981}
-  - component: {fileID: 758903980}
   m_Layer: 5
   m_Name: YSingle
   m_TagString: Untagged
@@ -3490,43 +3137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 0
---- !u!114 &758903980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758903974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &758903981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758903974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 758903980}
-  viewIdField: 3
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &886022872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3882,8 +3492,6 @@ GameObject:
   - component: {fileID: 1120176326}
   - component: {fileID: 1120176328}
   - component: {fileID: 1120176329}
-  - component: {fileID: 1120176331}
-  - component: {fileID: 1120176330}
   m_Layer: 5
   m_Name: YFives
   m_TagString: Untagged
@@ -4018,43 +3626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 4
---- !u!114 &1120176330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120176324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &1120176331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120176324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 1120176330}
-  viewIdField: 7
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1127254770
 GameObject:
   m_ObjectHideFlags: 0
@@ -5488,8 +5059,6 @@ GameObject:
   - component: {fileID: 1654357486}
   - component: {fileID: 1654357488}
   - component: {fileID: 1654357489}
-  - component: {fileID: 1654357491}
-  - component: {fileID: 1654357490}
   m_Layer: 5
   m_Name: YFourofkind
   m_TagString: Untagged
@@ -5624,43 +5193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreType: 8
---- !u!114 &1654357490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654357484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &1654357491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654357484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 1654357490}
-  viewIdField: 11
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1697713433
 GameObject:
   m_ObjectHideFlags: 0

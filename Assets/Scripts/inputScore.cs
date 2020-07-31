@@ -10,17 +10,20 @@ public class inputScore : MonoBehaviourPun
 
     public int scoreType;
     PhotonView photonview;
+    RectTransform rectransform;
 
     // Start is called before the first frame update
     void Start()
     {
         
         photonview = PhotonView.Get(this);
+        rectransform = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        rectransform.anchoredPosition = Vector3.zero;
         if (!GM.myTurn) { GetComponent<Button>().interactable = false; }
         else {
             GetComponent<Text>().text = GM.scoreRecord[scoreType].ToString();

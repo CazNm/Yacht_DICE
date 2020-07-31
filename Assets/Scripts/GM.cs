@@ -324,7 +324,7 @@ public class GM : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     public void ChangeTurn(string message) {
-        //   Debug.Log(message);
+        Debug.Log(message);
 
         r_count = 3;
         if (myTurn) { 
