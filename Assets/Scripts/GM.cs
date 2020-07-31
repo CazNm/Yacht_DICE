@@ -20,6 +20,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static int[] diceScore = { 0, 0, 0, 0, 0 };
     public static int[] scoreRecord = new int[12];
+    public static int[] p2scoreRec = new int[12] { 0,0,0,0,0,0,0,0,0,0,0,0 };
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
@@ -111,15 +112,14 @@ public class GM : MonoBehaviourPunCallbacks
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
+            scoreBoard.GetComponent<Button>().interactable = true;
             rollButton.interactable = true;
             selec_phase = true;
-
+            Score.myCal_sequence();
             
         }
         // mainLogic();
-        if (r_count == 0) { photonView.RPC("ChangeTurn", RpcTarget.All, "!!"); }
     }
-
 
     void spawnDice() {
        // PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
@@ -197,9 +197,11 @@ public class GM : MonoBehaviourPunCallbacks
         selec_phase = false;
         start_phase = false;
         rolling_phase = true;
-        r_count -= 1;
+        
+        
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
+        scoreBoard.GetComponent<Button>().interactable = false;
 
         // Rolldice() 호출시에 마스터 클라이 언트에서 주사위를 굴리도록 함
 
@@ -247,6 +249,7 @@ public class GM : MonoBehaviourPunCallbacks
                 }
             }
 
+            r_count -= 1;
             semiResult = true;
             sendPhase();
         }
@@ -315,6 +318,15 @@ public class GM : MonoBehaviourPunCallbacks
         photonView.RPC("syncVelo", RpcTarget.All, diceStopS, x);
     }
 
+    public void sendSB(int scoreType, int score) {
+        photonView.RPC("syncSBtext", RpcTarget.All, scoreType, score);
+    }
+
+    [PunRPC]
+    public void syncSBtext(int scoreType, int score)
+    {
+        p2scoreRec[scoreType] = score;
+    }
 
     [PunRPC]
     public void syncVelo(bool diceStopS, int x) {
