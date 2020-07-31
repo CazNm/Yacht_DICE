@@ -103,6 +103,11 @@ public class GM : MonoBehaviourPunCallbacks
         }
         // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
 
+
+        if (start_phase) { 
+            StartPhase();
+            return;
+        }
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
@@ -139,7 +144,7 @@ public class GM : MonoBehaviourPunCallbacks
 
         Debug.Log("start phase");
 
-        r_count = 4;
+        r_count = 3;
         semiResult = false;
         selec_phase = false;
         record_phase = false;

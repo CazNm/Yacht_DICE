@@ -76,8 +76,11 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			return; 
 		}
 
-		//if (!GM.playerOb.GetComponent<playerStat>().isMyturn) return;
-		
+		if (GM.start_phase)
+		{
+			transform.position = resultPos;
+		} //턴 시작 페이즈 주사위 위치
+
 		if (transform.position.y < -0.5f)
         {
 			//Debug.Log("out of box");
@@ -113,9 +116,7 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 
 		if (GM.rolling_phase) { return; }
 
-		if (GM.start_phase) {
-			transform.position = resultPos;
-		} //턴 시작 페이즈 주사위 위치
+		
 
 		*/
 
