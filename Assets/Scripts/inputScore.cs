@@ -36,6 +36,7 @@ public class inputScore : MonoBehaviourPun
         GameObject.Find("Canvas").transform.Find("ScoreBoard").GetComponent<OpenScoreBoard>().LookPedigree();
         if (GM.myTurn)
         {
+           
             GameObject.Find("GameManager").GetComponent<GM>().sendSB(scoreType, GM.scoreRecord[scoreType]);
             GameObject.Find("GameManager").GetComponent<GM>().sendMessage("ChangeTurn", "turn change by photon sync");
             Score.check[scoreType] = 1;

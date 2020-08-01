@@ -71,8 +71,8 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 		
         if (!photonView.IsMine) {
 			
-			transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10f);
-			transform.rotation = Quaternion.Slerp(transform.rotation, currentRot, Time.deltaTime * 10f);
+			transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 20f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, currentRot, Time.deltaTime * 20f);
 			return; 
 		}
 
@@ -81,7 +81,7 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			transform.position = resultPos;
 		} //턴 시작 페이즈 주사위 위치
 
-		if (transform.position.y < -0.5f)
+		if (transform.position.y < -0.5f || transform.position.x > 6 || transform.position.x < -6 || transform.position.z > 12 || transform.position.z < -12)
         {
 			//Debug.Log("out of box");
 			transform.position = new Vector3(rdirX, 1f ,rdirZ);

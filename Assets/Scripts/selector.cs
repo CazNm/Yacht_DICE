@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class selector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GM.myTurn && GM.start_phase) { keep = false; }
 
         GM.keep[dice_int] = keep;
 
