@@ -106,6 +106,7 @@ public class GM : MonoBehaviourPunCallbacks
        
         if (!myTurn) {
             rollButton.interactable = false;
+            scoreBoard.GetComponent<Button>().interactable = true;
         }
         // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
         if (start_phase) { 
