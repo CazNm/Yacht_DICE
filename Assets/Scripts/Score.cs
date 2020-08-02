@@ -85,14 +85,14 @@ public class Score : MonoBehaviour
         3 / 3 = four - 4의 눈의 합
         4 / 4 = fives - 5의 눈의 합
         5 / 5 = sixes - 6의 눈의 합
-        - / 6 = sum - sigle 부터 sixes까지의 합
-        - / 7 = bonus - sigle 부터 sixes까지의 합이 63점 이상이면, 보너스 점수 +35점을 얻는다.
-        6 / 8 = chance - 모든 주사위 눈의 합
-        7 / 9 = full house - 주사위 눈이 2개와 3개가 동일할 때의 모든 눈의 합
-        8 / 10 = four of kind - 주사위 눈이 4개가 같을 때의 모든 눈의 합
-        9 / 11 = small straight - 주사위 눈이 4개가 연속 일 때 20점을 얻는다
-        10 / 12 = large straight - 주사위 눈이 5개가 연속 일 때 30점을 얻는다
-        11 / 13 = Yacht! - 모든 주사위 눈이 같을 때 50점을 얻는다.
+        - / 12 = sum - sigle 부터 sixes까지의 합
+        - / 13 = bonus - sigle 부터 sixes까지의 합이 63점 이상이면, 보너스 점수 +35점을 얻는다.
+        6 / 6 = chance - 모든 주사위 눈의 합
+        7 / 7 = full house - 주사위 눈이 2개와 3개가 동일할 때의 모든 눈의 합
+        8 / 8 = four of kind - 주사위 눈이 4개가 같을 때의 모든 눈의 합
+        9 / 9 = small straight - 주사위 눈이 4개가 연속 일 때 20점을 얻는다
+        10 / 10 = large straight - 주사위 눈이 5개가 연속 일 때 30점을 얻는다
+        11 / 11 = Yacht! - 모든 주사위 눈이 같을 때 50점을 얻는다.
         - / 14 = Total = 총점
         */
     }
@@ -125,30 +125,7 @@ public class Score : MonoBehaviour
             checkFourK(0);
             checkSamllS(0);
             checkLargeS(0);
-            totalScore(0);
         }
-    }
-
-    public static void p2Cal_sequence() {
-
-        if (GM.p2Turn)
-        {
-            checkYacht(1);
-            checkSingle(1);
-            checkDouble(1);
-            checkThree(1);
-            checkFour(1);
-            checkFives(1);
-            checkSixes(1);
-            bounus_sum(1);
-            checkChance(1);
-            checkFullH(1);
-            checkFourK(1);
-            checkSamllS(1);
-            checkLargeS(1);
-            totalScore(1);
-        }
-
     }
 
     static void checkYacht(int player)
@@ -304,25 +281,30 @@ public class Score : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
-            if (check[i] == 1) sumcheck += 1;
+            if (check[i] == 1) {
+                sumcheck += 1; 
+            }
         }
+        
+
         if (sumcheck == 6)
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;
-           // GM.scoreRecord[6] = sum;
+            GM.scoreRecord[12] = sum;
             if (sum >= 63)
             {
                 bonus = 35;
-               // GM.scoreRecord[7] = bonus;
+                GM.scoreRecord[13] = bonus;
             }
             else
             {
                 bonus = 0;
-               // GM.scoreRecord[7] = bonus;
+                GM.scoreRecord[13] = bonus;
             }
         }
         else
         {
+            GM.scoreRecord[13] = 0;
             sumcheck = 0;
         }
     }
@@ -529,7 +511,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    static void totalScore(int player)
+    public static void totalScore()
     {
         for (int i = 0; i < 12; i++)
         {
@@ -541,10 +523,11 @@ public class Score : MonoBehaviour
         if (totalcheck == 12)
         {
             total = sum + bonus + chancesum + fullhouse + fourofkind + smallstraight + largestraight + yacht;
-           // GM.scoreRecord[14] = total;
+            GM.scoreRecord[14] = total;
         }
         else
         {
+            GM.scoreRecord[14] = 0;
             totalcheck = 0;
         }
 

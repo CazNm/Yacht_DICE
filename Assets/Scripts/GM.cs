@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GM : MonoBehaviourPunCallbacks
 {
@@ -20,8 +21,8 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool p2Turn;
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static int[] diceScore = { 0, 0, 0, 0, 0 };
-    public static int[] scoreRecord = new int[12];
-    public static int? [] p2scoreRec = new int? [12];
+    public static int[] scoreRecord = new int[15];
+    public static int? [] p2scoreRec = new int? [15];
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
@@ -52,6 +53,22 @@ public class GM : MonoBehaviourPunCallbacks
     void Start()
     {
         start_game = true;
+        start_phase = true;
+        semiResult = false;
+        selec_phase = false;
+        record_phase = false; 
+        rolling_phase = false;
+        protect = false;
+        disActive = true;
+        p2Leave = false;
+        waiting = true;
+
+        for (int x = 0; x < scoreRecord.Length; x++) {
+            scoreRecord[x] = 0;
+            p2scoreRec[x] = null;
+        }
+
+
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
         photonview = PhotonView.Get(this);
@@ -65,6 +82,31 @@ public class GM : MonoBehaviourPunCallbacks
 
         if ( myTurn ) { sendPhase(); }
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+
+        if (GM.scoreRecord[14] != 0 && p2scoreRec[14] != null)
+        {
+
+            GameObject.Find("Canvas").transform.Find("RS").gameObject.SetActive(true);
+            if (scoreRecord[14] > p2scoreRec[14])
+            {
+                GameObject.Find("Canvas").transform.Find("RS").transform.Find("WL").GetComponent<Text>().text = "YOU WIN";
+
+            }
+            else if (scoreRecord[14] == p2scoreRec[14])
+            {
+                GameObject.Find("Canvas").transform.Find("RS").transform.Find("WL").GetComponent<Text>().text = "DRAW";
+
+            }
+            else
+            {
+                GameObject.Find("Canvas").transform.Find("RS").transform.Find("WL").GetComponent<Text>().text = "YOU LOSE";
+            }
+
+            GameObject.Find("Canvas").transform.Find("RS").transform.Find("PS").GetComponent<Text>().text = scoreRecord[14].ToString();
+            GameObject.Find("Canvas").transform.Find("RS").transform.Find("OS").GetComponent<Text>().text = p2scoreRec[14].ToString();
+            Invoke("gotoLobby", 3f);
+            return;
+        }//게임 종료
 
         if (p2Leave && PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
@@ -84,6 +126,8 @@ public class GM : MonoBehaviourPunCallbacks
             start_game = true;
             return; 
         }
+
+        
 
         if (start_game) {
             waiting = false;
@@ -112,7 +156,8 @@ public class GM : MonoBehaviourPunCallbacks
 
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
-       
+
+        Score.totalScore();
         if (!myTurn) {
             rollButton.interactable = false;
             scoreBoard.GetComponent<Button>().interactable = true;

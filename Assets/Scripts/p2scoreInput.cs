@@ -22,10 +22,20 @@ public class p2scoreInput : MonoBehaviour
     {
         score = GM.p2scoreRec[scoreType];
         //text.text = score.ToString();
-        if (check && score != null)
+        
+
+        if (scoreType == 12 || scoreType == 13 || scoreType == 14)
         {
-            StartCoroutine(Showready());
-            check = false;
+            if(score != null) text.text = score.ToString();
+            else text.text = "";
+
+        }
+        else {
+            if (check && score != null)
+            {
+                StartCoroutine(Showready());
+                check = false;
+            }
         }
 
 
