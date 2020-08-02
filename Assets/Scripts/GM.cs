@@ -32,6 +32,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool record_phase = false;
     public static bool rolling_phase = false;
     public static bool protect = false;
+    public static bool disActive = true;
 
     GameObject dice1;
     GameObject dice2;
@@ -166,7 +167,11 @@ public class GM : MonoBehaviourPunCallbacks
             dice5.GetComponent<Rigidbody>().useGravity = false;
         }
 
-       // scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
+        if (disActive)
+        {
+            scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
+            disActive = false;
+        }
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("SelectUI").GetChild(2).GetComponent<selector>().keep = false;
         GameObject.Find("Canvas").transform.Find("SelectUI").GetChild(3).GetComponent<selector>().keep = false;
@@ -333,6 +338,7 @@ public class GM : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     public void ChangeTurn(string message) {
+        disActive = true;
         GM.protect = false;
         Debug.Log(message);
         r_count = 3;
