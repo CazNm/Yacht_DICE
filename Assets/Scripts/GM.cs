@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using JetBrains.Annotations;
+using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviourPunCallbacks
 {
@@ -33,6 +34,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool rolling_phase = false;
     public static bool protect = false;
     public static bool disActive = true;
+    public static bool p2Leave = false;
 
     GameObject dice1;
     GameObject dice2;
@@ -93,6 +95,10 @@ public class GM : MonoBehaviourPunCallbacks
 
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
+        if (p2Leave) {
+            GameObject.Find("Canvas").transform.Find("SW").gameObject.SetActive(true);
+            Invoke("gotoLobby", 3f);
+        }
         if (!myTurn) {
             rollButton.interactable = false;
         }
@@ -127,6 +133,11 @@ public class GM : MonoBehaviourPunCallbacks
             }
         }
         // mainLogic();
+    }
+
+    void gotoLobby() {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("Lobby");
     }
 
     void recPhaseChange() {
@@ -192,6 +203,12 @@ public class GM : MonoBehaviourPunCallbacks
         //scoreBoard.GetComponent<Button>().interactable = false;
     }
 
+    public void leaveRoom() {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("Lobby");
+        photonView.RPC("p2LeaveRoom", RpcTarget.All);
+    }
+
     void allKeep() {
         if (keep[0] && keep[1] && keep[2] && keep[3] && keep[4])
         {
@@ -201,7 +218,12 @@ public class GM : MonoBehaviourPunCallbacks
             rollButton.interactable = true;
         }
     }
-
+    [PunRPC]
+    public void p2LeaveRoom()
+    {
+        p2Leave = true;
+    }
+    
     [PunRPC]
     public void Rolldice()
     {
