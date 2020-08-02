@@ -20,7 +20,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
     public static int[] diceScore = { 0, 0, 0, 0, 0 };
     public static int[] scoreRecord = new int[12];
-    public static int[] p2scoreRec = new int[12] { 0,0,0,0,0,0,0,0,0,0,0,0 };
+    public static int? [] p2scoreRec = new int? [12];
     public static bool[] diceStop = { false, false, false, false, false };
     public static bool[] keep = { false, false, false, false, false };
     public static GameObject[] s_ui;
@@ -31,6 +31,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool selec_phase = false;
     public static bool record_phase = false;
     public static bool rolling_phase = false;
+    public static bool protect = false;
 
     GameObject dice1;
     GameObject dice2;
@@ -93,22 +94,43 @@ public class GM : MonoBehaviourPunCallbacks
 
         if (!myTurn) {
             rollButton.interactable = false;
-            scoreBoard.GetComponent<Button>().interactable = false;
         }
         // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
         if (start_phase) { 
             StartPhase();
             return;
         }
+
+        if (record_phase) {
+            scoreBoard.GetComponent<OpenScoreBoard>().PIn = true;
+            return;
+        }
+
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
-            GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
-            scoreBoard.GetComponent<Button>().interactable = true;
-            rollButton.interactable = true;
-            selec_phase = true;
+            rolling_phase = false;
+            
             Score.myCal_sequence();
+
+
+            if (r_count != 0)
+            {
+                GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
+                scoreBoard.GetComponent<Button>().interactable = true;
+                rollButton.interactable = true;
+                selec_phase = true;
+            }
+            else {
+                Invoke("recPhaseChange", 0.5f);
+                rollButton.interactable = false;
+            }
         }
         // mainLogic();
+    }
+
+    void recPhaseChange() {
+        Score.myCal_sequence();
+        record_phase = true;
     }
     void spawnDice() {
        // PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
@@ -144,6 +166,7 @@ public class GM : MonoBehaviourPunCallbacks
             dice5.GetComponent<Rigidbody>().useGravity = false;
         }
 
+       // scoreBoard.GetComponent<OpenScoreBoard>().PIn = false;
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("SelectUI").GetChild(2).GetComponent<selector>().keep = false;
         GameObject.Find("Canvas").transform.Find("SelectUI").GetChild(3).GetComponent<selector>().keep = false;
@@ -154,7 +177,7 @@ public class GM : MonoBehaviourPunCallbacks
         
         if (!myTurn) { 
             rollButton.interactable = false;
-            scoreBoard.GetComponent<Button>().interactable = false;
+            scoreBoard.GetComponent<Button>().interactable = true;
         }
         else { 
             rollButton.interactable = true;
@@ -238,24 +261,6 @@ public class GM : MonoBehaviourPunCallbacks
         }
     }
 
-    void selectPhase()
-    {
-        
-        dice1.GetComponent<Rigidbody>().useGravity = false;
-        dice2.GetComponent<Rigidbody>().useGravity = false;
-        dice3.GetComponent<Rigidbody>().useGravity = false;
-        dice4.GetComponent<Rigidbody>().useGravity = false;
-        dice5.GetComponent<Rigidbody>().useGravity = false;
-
-       // Debug.Log("selectPhase");
-        avtiveSelectUI();
-    }
-
-    void avtiveSelectUI()
-    {
-        GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
-    }
-
    public void KeepSelect(GameObject button)
     {
        // Debug.Log("select logic");
@@ -305,6 +310,14 @@ public class GM : MonoBehaviourPunCallbacks
         photonView.RPC("syncSBtext", RpcTarget.All, scoreType, score);
     }
 
+    public void syncResultPhase() {
+        photonView.RPC("resultPhase", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void resultPhase() {
+        scoreBoard.GetComponent<OpenScoreBoard>().PIn = true;
+    }
     [PunRPC]
     public void syncSBtext(int scoreType, int score)
     {
@@ -320,8 +333,8 @@ public class GM : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     public void ChangeTurn(string message) {
+        GM.protect = false;
         Debug.Log(message);
-
         r_count = 3;
         if (myTurn) { 
             myTurn = false;

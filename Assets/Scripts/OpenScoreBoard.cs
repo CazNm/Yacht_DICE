@@ -30,19 +30,24 @@ public class OpenScoreBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!PIn)
+        {
+            rectTransform.anchoredPosition = outside;
+        }
+        else 
+        {
+            rectTransform.anchoredPosition = Vector3.zero;
+        }
     }
 
     public void LookPedigree()
     {
         if (PIn)
         {
-            rectTransform.anchoredPosition = outside;
             PIn = false;
         }
         else
         {
-            rectTransform.anchoredPosition = Vector3.zero;
             PIn = true;
         }
     }

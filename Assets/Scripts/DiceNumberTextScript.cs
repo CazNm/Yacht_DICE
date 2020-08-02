@@ -21,16 +21,21 @@ public class DiceNumberTextScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(GM.myTurn)
+		if (GM.myTurn)
 		{
-			for (int x = 0; x < 5; x++) {
+			for (int x = 0; x < 5; x++)
+			{
 				diceNumbers[x] = GM.diceScore[x];
 			}
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}
-		else { 
+		else if (!GM.myTurn && GM.record_phase) {
+			text.text = "상대가 기록중입니다...";
+		}
+		else
+		{
 			text.text = "상대가 플레이 중 입니다...";
-			
+
 			return;
 		}
 		if (GM.start_phase) { text.text = "Your Turn!"; }

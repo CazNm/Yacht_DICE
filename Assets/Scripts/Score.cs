@@ -66,6 +66,14 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GM.myTurn || GM.start_phase || GM.rolling_phase || GM.protect)
+        {
+            this.GetComponent<Transform>().transform.Find("protector").gameObject.SetActive(true);
+        }
+        else
+        {
+            this.GetComponent<Transform>().transform.Find("protector").gameObject.SetActive(false);
+        }
         numberUpdate();
 
         /*
@@ -90,6 +98,7 @@ public class Score : MonoBehaviour
 
     void numberUpdate()
     {
+        
         Dnum1 = DiceNumberTextScript.diceNumbers[0];
         Dnum2 = DiceNumberTextScript.diceNumbers[1];
         Dnum3 = DiceNumberTextScript.diceNumbers[2];
