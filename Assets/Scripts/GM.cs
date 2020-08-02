@@ -35,6 +35,7 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool protect = false;
     public static bool disActive = true;
     public static bool p2Leave = false;
+    public static bool waiting = true;
 
     GameObject dice1;
     GameObject dice2;
@@ -70,14 +71,22 @@ public class GM : MonoBehaviourPunCallbacks
             GameObject.Find("Canvas").transform.Find("SW").gameObject.SetActive(true);
             Invoke("gotoLobby", 2f);
             return;
-        }
+        } // 서렌 버튼시 강종
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount != 2) {
+        if (!waiting && PhotonNetwork.CurrentRoom.PlayerCount != 2) {
+            GameObject.Find("Canvas").transform.Find("SW").gameObject.SetActive(true);
+            Invoke("gotoLobby", 2f);
+            return;
+        } // 강종시 메뉴로 
+
+        if (waiting && PhotonNetwork.CurrentRoom.PlayerCount != 2) {
             GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(true);
             start_game = true;
             return; 
         }
+
         if (start_game) {
+            waiting = false;
             rollButton.interactable = true;
             spawnDice();
             setTurn();
