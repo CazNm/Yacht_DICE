@@ -64,11 +64,19 @@ public class GM : MonoBehaviourPunCallbacks
 
         if ( myTurn ) { sendPhase(); }
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        /*if (PhotonNetwork.CurrentRoom.PlayerCount != 2) {
+
+        if (p2Leave && PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            GameObject.Find("Canvas").transform.Find("SW").gameObject.SetActive(true);
+            Invoke("gotoLobby", 2f);
+            return;
+        }
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount != 2) {
             GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(true);
             start_game = true;
             return; 
-        }*/
+        }
         if (start_game) {
             rollButton.interactable = true;
             spawnDice();
@@ -95,10 +103,7 @@ public class GM : MonoBehaviourPunCallbacks
 
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
-        if (p2Leave) {
-            GameObject.Find("Canvas").transform.Find("SW").gameObject.SetActive(true);
-            Invoke("gotoLobby", 3f);
-        }
+       
         if (!myTurn) {
             rollButton.interactable = false;
         }
@@ -116,10 +121,7 @@ public class GM : MonoBehaviourPunCallbacks
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
             rolling_phase = false;
-            
             Score.myCal_sequence();
-
-
             if (r_count != 0)
             {
                 GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
@@ -204,9 +206,10 @@ public class GM : MonoBehaviourPunCallbacks
     }
 
     public void leaveRoom() {
+        photonView.RPC("p2LeaveRoom", RpcTarget.All);
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
-        photonView.RPC("p2LeaveRoom", RpcTarget.All);
+        
     }
 
     void allKeep() {

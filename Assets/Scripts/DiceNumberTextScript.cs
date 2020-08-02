@@ -27,6 +27,7 @@ public class DiceNumberTextScript : MonoBehaviour {
 			{
 				diceNumbers[x] = GM.diceScore[x];
 			}
+			Debug.Log(diceNumbers[0] + "/" + diceNumbers[1] + "/" + diceNumbers[2] + "/" + diceNumbers[3] + "/" + diceNumbers[4] + "/");
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}
 		else if (!GM.myTurn && GM.record_phase) {

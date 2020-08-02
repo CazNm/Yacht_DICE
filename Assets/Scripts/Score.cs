@@ -66,6 +66,7 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        numberUpdate();
         if (!GM.myTurn || GM.start_phase || GM.rolling_phase || GM.protect)
         {
             this.GetComponent<Transform>().transform.Find("protector").gameObject.SetActive(true);
@@ -74,7 +75,7 @@ public class Score : MonoBehaviour
         {
             this.GetComponent<Transform>().transform.Find("protector").gameObject.SetActive(false);
         }
-        numberUpdate();
+        
 
         /*
         Check Number / Child Number
@@ -98,7 +99,8 @@ public class Score : MonoBehaviour
 
     void numberUpdate()
     {
-        
+        Debug.Log(Dnum1 + "." + Dnum2 + "." + Dnum3 + "." + Dnum4 + "." + Dnum5 + ".");
+
         Dnum1 = DiceNumberTextScript.diceNumbers[0];
         Dnum2 = DiceNumberTextScript.diceNumbers[1];
         Dnum3 = DiceNumberTextScript.diceNumbers[2];
@@ -156,6 +158,7 @@ public class Score : MonoBehaviour
             checkyacht[i] = 0;
         }
 
+        //Debug.Log(Dnum1 + "/" + Dnum2 + "/" + Dnum3 + "/" + Dnum4 + "/" + Dnum5 + "/");
         checkyacht[Dnum1 - 1] += 1;
         checkyacht[Dnum2 - 1] += 1;
         checkyacht[Dnum3 - 1] += 1;

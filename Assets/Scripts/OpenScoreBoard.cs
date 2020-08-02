@@ -20,7 +20,7 @@ public class OpenScoreBoard : MonoBehaviour
 
         GameObject sboard = new GameObject();
         sboard = GameObject.Find("Pedigree");
-        rectTransform = sboard.GetComponent<RectTransform>();
+        rectTransform = GameObject.Find("Canvas").transform.Find("Pedigree").GetComponent<RectTransform>();
 
         rectTransform.anchoredPosition = new Vector3(-9000,0,0);
 
