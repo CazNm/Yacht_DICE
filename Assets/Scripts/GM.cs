@@ -68,6 +68,16 @@ public class GM : MonoBehaviourPunCallbacks
             p2scoreRec[x] = null;
         }
 
+        scoreRecord[0] = 4;
+        scoreRecord[1] = 8;
+        scoreRecord[2] = 12;
+        scoreRecord[3] = 16;
+        scoreRecord[4] = 20;
+        scoreRecord[7] = 28;
+        scoreRecord[8] = 29;
+        scoreRecord[9] = 20;
+        scoreRecord[10] = 30;
+        scoreRecord[11] = 50;
 
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
@@ -157,7 +167,8 @@ public class GM : MonoBehaviourPunCallbacks
         GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(false);
 
 
-        Score.totalScore();
+        
+
         if (!myTurn) {
             rollButton.interactable = false;
             scoreBoard.GetComponent<Button>().interactable = true;
@@ -392,7 +403,7 @@ public class GM : MonoBehaviourPunCallbacks
     }
 
     public void sendSB(int scoreType, int score) {
-        photonView.RPC("syncSBtext", RpcTarget.All, scoreType, score);
+        photonView.RPC("syncSBtext", RpcTarget.Others, scoreType, score);
     }
 
     public void syncResultPhase() {
@@ -406,7 +417,7 @@ public class GM : MonoBehaviourPunCallbacks
     [PunRPC]
     public void syncSBtext(int scoreType, int score)
     {
-        if (!myTurn) p2scoreRec[scoreType] = score;
+        p2scoreRec[scoreType] = score;
         
     }
 

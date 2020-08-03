@@ -44,6 +44,9 @@ public class Score : MonoBehaviour
         myScore = sboard.transform.GetChild(0).gameObject;
         p2Score = sboard.transform.GetChild(1).gameObject;
 
+        
+        
+
         int youtextcount = sboard.transform.GetChild(0).childCount;
         int comtextcount = sboard.transform.GetChild(1).childCount;
         for (int i = 0; i < youtextcount; i++)
@@ -58,6 +61,17 @@ public class Score : MonoBehaviour
         {
             check[i] = 0;
         }
+
+        check[0] = 1;
+        check[1] = 1;
+        check[2] = 1;
+        check[3] = 1;
+        check[4] = 1;
+        check[7] = 1;
+        check[8] = 1;
+        check[9] = 1;
+        check[10] = 1;
+        check[11] = 1;
 
         numberUpdate();
 
@@ -119,7 +133,6 @@ public class Score : MonoBehaviour
             checkFour(0);
             checkFives(0);
             checkSixes(0);
-            bounus_sum(0);
             checkChance(0);
             checkFullH(0);
             checkFourK(0);
@@ -179,6 +192,8 @@ public class Score : MonoBehaviour
             singlesum = 0;
             GM.scoreRecord[0] = singlesum;
         }
+
+        if (check[0] == 1) { singlesum = GM.scoreRecord[0]; }
     }
 
     static void checkDouble(int player)
@@ -198,6 +213,9 @@ public class Score : MonoBehaviour
             doublesum = 0;
             GM.scoreRecord[1] = doublesum;
          }
+
+        if (check[1] == 1) { doublesum = GM.scoreRecord[1]; }
+
     }
 
     static void checkThree(int player)
@@ -218,6 +236,9 @@ public class Score : MonoBehaviour
             GM.scoreRecord[2] = threesum;
         }
 
+        if (check[2] == 1) { threesum = GM.scoreRecord[2]; }
+
+
     }
 
     static void checkFour(int player)
@@ -237,6 +258,9 @@ public class Score : MonoBehaviour
             foursum = 0;
             GM.scoreRecord[3] = foursum;
         }
+
+        if (check[3] == 1) { foursum = GM.scoreRecord[3]; }
+
     }
 
     static void checkFives(int player)
@@ -256,6 +280,8 @@ public class Score : MonoBehaviour
             fivessum = 0;
             GM.scoreRecord[4] = fivessum;
         }
+        if (check[4] == 1) { fivessum = GM.scoreRecord[4]; }
+
     }
 
     static void checkSixes(int player)
@@ -275,9 +301,12 @@ public class Score : MonoBehaviour
             sixessum = 0;
             GM.scoreRecord[5] = sixessum;
         }
+
+        if (check[5] == 1) { sixessum = GM.scoreRecord[5]; }
+
     }
 
-    static void bounus_sum(int player)
+    public static void bounus_sum()
     {
         for (int i = 0; i < 6; i++)
         {
@@ -286,7 +315,6 @@ public class Score : MonoBehaviour
             }
         }
         
-
         if (sumcheck == 6)
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;

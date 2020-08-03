@@ -41,7 +41,8 @@ public class inputScore : MonoBehaviourPun
             }
         }
         else if (!GM.myTurn && Score.check[scoreType] == 0) { GetComponent<Text>().text = "0"; }
-        else if (!GM.myTurn || Score.check[scoreType] == 1) { 
+        else if (!GM.myTurn || Score.check[scoreType] == 1) {
+            GetComponent<Text>().text = GM.scoreRecord[scoreType].ToString();
             GetComponent<Button>().interactable = false; 
         }
         else if (Score.check[scoreType] == 0 && GM.myTurn)
@@ -63,6 +64,8 @@ public class inputScore : MonoBehaviourPun
             GameObject.Find("GameManager").GetComponent<GM>().sendSB(scoreType, GM.scoreRecord[scoreType]);
             Score.check[scoreType] = 1;
             GameObject.Find("GameManager").GetComponent<GM>().syncResultPhase();
+            Score.totalScore();
+            Score.bounus_sum();
             Invoke("changeTurn", 3f);
         }
     }
