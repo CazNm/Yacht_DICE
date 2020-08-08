@@ -25,7 +25,7 @@ public class inputScore : MonoBehaviourPun
     void Update()
     {
         rectransform.anchoredPosition = Vector3.zero;
-        if(send && scoreType == 12 || scoreType == 13 || scoreType == 14)
+        if(send && (scoreType == 12 || scoreType == 13 || scoreType == 14))
         {
 
             if (GM.scoreRecord[scoreType] == 0)
@@ -54,13 +54,13 @@ public class inputScore : MonoBehaviourPun
     }
 
     public void iScore(GameObject self) {
+        GM.timer = 0.0f;
         self.GetComponent<Button>().interactable = false;
         GetComponent<Text>().color = Color.green;
         GM.protect = true;
         GameObject.Find("Canvas").transform.Find("ScoreBoard").GetComponent<OpenScoreBoard>().LookPedigree();
         if (GM.myTurn)
         {
-            
             GameObject.Find("GameManager").GetComponent<GM>().sendSB(scoreType, GM.scoreRecord[scoreType]);
             Score.check[scoreType] = 1;
             GameObject.Find("GameManager").GetComponent<GM>().syncResultPhase();

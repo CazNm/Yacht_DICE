@@ -37,6 +37,10 @@ public class GM : MonoBehaviourPunCallbacks
     public static bool disActive = true;
     public static bool p2Leave = false;
     public static bool waiting = true;
+    public static bool timeOver = false;
+
+    public static float timer;
+    public static float endTime;
 
     GameObject dice1;
     GameObject dice2;
@@ -62,12 +66,17 @@ public class GM : MonoBehaviourPunCallbacks
         disActive = true;
         p2Leave = false;
         waiting = true;
+        timeOver = false;
+
+        timer = 0.0f;
+        endTime = 30.0f;
 
         for (int x = 0; x < scoreRecord.Length; x++) {
             scoreRecord[x] = 0;
             p2scoreRec[x] = null;
         }
 
+        /*
         scoreRecord[0] = 4;
         scoreRecord[1] = 8;
         scoreRecord[2] = 12;
@@ -78,7 +87,8 @@ public class GM : MonoBehaviourPunCallbacks
         scoreRecord[9] = 20;
         scoreRecord[10] = 30;
         scoreRecord[11] = 50;
-
+        */
+        //테스트용 점수
         rollButton = GameObject.Find("Canvas").transform.Find("RollButton").GetComponent<Button>();
         scoreBoard = GameObject.Find("Canvas").transform.Find("ScoreBoard").gameObject;
         photonview = PhotonView.Get(this);
@@ -87,11 +97,30 @@ public class GM : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (waiting && PhotonNetwork.CurrentRoom.PlayerCount != 2)
+        {
+            GameObject.Find("Canvas").transform.Find("WT").gameObject.SetActive(true);
+            timer += Time.deltaTime;
+            GameObject.Find("Canvas").transform.Find("WT").transform.Find("TM").GetComponent<Text>().text = "매칭중... "+ ((int) timer).ToString()+ "s";
+            start_game = true;
+
+            if (timer > 5.0f) {
+                GameObject.Find("Canvas").transform.Find("WT").transform.Find("Button").gameObject.SetActive(true);
+            }
+            return;
+        }
 
         Debug.Log(keep[0] + "/" + keep[1] + "/" + keep[2] + "/" + keep[3] + "/" + keep[4] + "/" );
 
         if ( myTurn ) { sendPhase(); }
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        timeOut();
+
+        if (timeOver) {
+            GameObject.Find("Canvas").transform.Find("OT").gameObject.SetActive(true);
+            Invoke("gotoLobby", 2f);
+            return;
+        }
 
         if (GM.scoreRecord[14] != 0 && p2scoreRec[14] != null)
         {
@@ -131,15 +160,9 @@ public class GM : MonoBehaviourPunCallbacks
             return;
         } // 강종시 메뉴로 
 
-        if (waiting && PhotonNetwork.CurrentRoom.PlayerCount != 2) {
-            GameObject.Find("Canvas").transform.Find("WTimg").gameObject.SetActive(true);
-            start_game = true;
-            return; 
-        }
-
-        
 
         if (start_game) {
+            timer = 0.0f;
             waiting = false;
             rollButton.interactable = true;
             spawnDice();
@@ -176,16 +199,20 @@ public class GM : MonoBehaviourPunCallbacks
         // 마스터 클라이언트라면 마스터 클라이언트에서 계속 턴을 진행 하는 로직을 진행... 문제는 이제 UI나 다른것들에 대한 판정을 RPC로 전달해야됨.
         if (start_phase) { 
             StartPhase();
+            timer += Time.deltaTime;
+
             return;
         }
 
         if (record_phase) {
             scoreBoard.GetComponent<OpenScoreBoard>().PIn = true;
+            timer += Time.deltaTime;
             return;
         }
 
         if (myTurn && diceStop[0] && diceStop[1] && diceStop[2] && diceStop[3] && diceStop[4])
         {
+            timer += Time.deltaTime;
             rolling_phase = false;
             Score.myCal_sequence();
             if (r_count != 0)
@@ -203,12 +230,26 @@ public class GM : MonoBehaviourPunCallbacks
         // mainLogic();
     }
 
-    void gotoLobby() {
+    void timeOut() {
+        if (myTurn && timer < 10.0f) {
+            GameObject.Find("Canvas").transform.Find("Timer").gameObject.SetActive(false);
+        }
+        if (myTurn && timer >= 10.0f) {
+            GameObject.Find("Canvas").transform.Find("Timer").gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.Find("Timer").transform.Find("Timer").GetComponent<Text>().text = $"남은시간 : {30 - (int)timer}";
+        }
+        if (myTurn && timer > 30.0f) {
+            timeOver = true;
+        }
+    }
+
+    public void gotoLobby() {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }
 
     void recPhaseChange() {
+        timer = 0.0f;
         Score.myCal_sequence();
         record_phase = true;
     }
@@ -296,6 +337,7 @@ public class GM : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Rolldice()
     {
+        timer = 0.0f;
         selec_phase = false;
         start_phase = false;
         rolling_phase = true;

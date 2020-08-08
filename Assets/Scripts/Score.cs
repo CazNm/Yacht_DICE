@@ -62,6 +62,7 @@ public class Score : MonoBehaviour
             check[i] = 0;
         }
 
+        /*
         check[0] = 1;
         check[1] = 1;
         check[2] = 1;
@@ -72,7 +73,8 @@ public class Score : MonoBehaviour
         check[9] = 1;
         check[10] = 1;
         check[11] = 1;
-
+        */
+        //테스트용 체커
         numberUpdate();
 
     }

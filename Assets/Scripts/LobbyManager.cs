@@ -40,6 +40,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public static FirebaseUser User;
 
+    public static int lobbyUser;
+    public static int currentUser;
+
+    public Text lu;
+    public Text cu;
+   
+
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start()
     {
@@ -68,6 +75,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void Update()
+    {
+        
+        currentUser = PhotonNetwork.CountOfPlayers;
+        cu.text = "    접속자 수 : " + currentUser;
+        lobbyUser = PhotonNetwork.CountOfPlayersOnMaster;
+        lu.text = "로비 접속자 수 : " + lobbyUser;
+    }
+
 
     // 마스터 서버 접속 성공시 자동 실행
     public override void OnConnectedToMaster()
@@ -77,7 +93,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         customHost.interactable = true;
         customJoin.interactable = true;
         // 접속 정보 표시
-        connectionInfoText.text = "온라인! 서버와 연결됨";
+        connectionInfoText.text = "온라인!";
     }
     // 마스터 서버 접속 실패시 자동 실행
 
@@ -86,7 +102,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 룸 접속 버튼을 비활성화
         joinButton.interactable = false;
         // 접속 정보 표시
-        connectionInfoText.text = "오프라인 : 서버와 연결되지 않음\n접속 재시도 중...";
+        connectionInfoText.text = "서버와 연결되지 않음\n접속 재시도 중...";
 
         // 마스터 서버로의 재접속 시도
         PhotonNetwork.ConnectUsingSettings();
@@ -110,7 +126,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         else
         {
             // 마스터 서버에 접속중이 아니라면, 마스터 서버에 접속 시도
-            connectionInfoText.text = "오프라인 : 마스터 서버와 연결되지 않음\n접속 재시도 중...";
+            connectionInfoText.text = "서버와 연결되지 않음\n접속 재시도 중...";
             // 마스터 서버로의 재접속 시도
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -119,7 +135,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // 접속 상태 표시
-        connectionInfoText.text = "빈 방이 없음, 새로운 방 호스팅 중...";
+        connectionInfoText.text = "방 생성 중...";
         // 최대 2명을 수용 가능한 빈방을 생성
         PhotonNetwork.CreateRoom(null, randomOptions);
     }
