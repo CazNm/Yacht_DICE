@@ -151,6 +151,6 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
     private void OnCollisionEnter(Collision col)
     {
 		Debug.Log("hit!");
-		GameObject.Find("GameManager").GetComponent<GM>().syncSound(this.gameObject);
+		GameObject.Find("GameManager").GetComponent<GM>().syncSound(dice_no);
 	}
 }

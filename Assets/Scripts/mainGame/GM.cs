@@ -449,8 +449,8 @@ public class GM : MonoBehaviourPunCallbacks
         photonView.RPC("resultPhase", RpcTarget.All);
     }
 
-    public void syncSound(GameObject dice) {
-        photonView.RPC("soundPlay", RpcTarget.All, dice);
+    public void syncSound(int diceNo) {
+        photonView.RPC("soundPlay", RpcTarget.All, diceNo);
     }
 
     [PunRPC]
@@ -489,10 +489,17 @@ public class GM : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC] 
-    public void soundPlay(GameObject dice) {
-        if (rolling_phase) {
-            dice.GetComponent<AudioSource>().Play();
+    [PunRPC]
+    public void soundPlay(int diceNo)
+    {
+        Debug.Log("sound?");
+        if (rolling_phase)
+        {
+            if (diceNo == 0) GameObject.Find("SoundManager").GetComponent<soundManager>().roll1.Play();
+            else if (diceNo == 1) GameObject.Find("SoundManager").GetComponent<soundManager>().roll2.Play();
+            else if (diceNo == 2) GameObject.Find("SoundManager").GetComponent<soundManager>().roll1.Play();
+            else if (diceNo == 3) GameObject.Find("SoundManager").GetComponent<soundManager>().roll2.Play();
+            else GameObject.Find("SoundManager").GetComponent<soundManager>().roll1.Play();
         }
     }
 
