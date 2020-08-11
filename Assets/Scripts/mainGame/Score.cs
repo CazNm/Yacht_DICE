@@ -382,7 +382,7 @@ public class Score : MonoBehaviour
                 }
             }
 
-            Debug.Log( houseChecker[0] + " , " + houseChecker[1] + " , " + houseChecker[2] + " , " + houseChecker[3] + " , " + houseChecker[4] + " , " + houseChecker[5] );
+            //Debug.Log( houseChecker[0] + " , " + houseChecker[1] + " , " + houseChecker[2] + " , " + houseChecker[3] + " , " + houseChecker[4] + " , " + houseChecker[5] );
 
             for (int x = 0; x < 6; x++)
             {

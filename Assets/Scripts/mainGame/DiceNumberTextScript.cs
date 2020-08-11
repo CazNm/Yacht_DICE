@@ -31,14 +31,15 @@ public class DiceNumberTextScript : MonoBehaviour {
 			text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString();
 		}
 		else if (!GM.myTurn && GM.record_phase) {
-			text.text = "상대가 기록중입니다...";
-		}
-		else
-		{
-			text.text = "상대가 플레이 중 입니다...";
-
+			text.text = "상대가 기록중 입니다.";
 			return;
 		}
+		else if (!GM.myTurn)
+		{
+			text.text = "상대가 플레이 중 입니다...";
+			return;
+		}
+
 		if (GM.start_phase) { text.text = "Your Turn!"; }
 		else if (GM.record_phase) { text.text = "Record your score"; }
 		else { text.text = diceNumbers[0].ToString() + " , " + diceNumbers[1].ToString() + " , " + diceNumbers[2].ToString() + " , " + diceNumbers[3].ToString() + " , " + diceNumbers[4].ToString(); }

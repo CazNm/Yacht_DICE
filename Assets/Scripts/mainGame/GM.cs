@@ -110,13 +110,14 @@ public class GM : MonoBehaviourPunCallbacks
             }
             return;
         }
+        
 
       //  Debug.Log(keep[0] + "/" + keep[1] + "/" + keep[2] + "/" + keep[3] + "/" + keep[4] + "/" );
 
         if ( myTurn ) { sendPhase(); }
 
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        timeOut();
+       
 
         if (timeOver) {
             GameObject.Find("Canvas").transform.Find("OT").gameObject.SetActive(true);
@@ -174,6 +175,8 @@ public class GM : MonoBehaviourPunCallbacks
             start_game = false;
         } //여기서 호스트가 먼저 생성해야될 것들을 먼저 생성한다.
 
+        timeOut();
+
         //동기화 되어야 하는 물체가 다 로딩이 되었는지 체크하는 로직 생성이나 동기화가 덜 되어서 게임 로직으로 넘어가는 것을 방지
         if (dice1 != null && dice2 != null && dice3 != null && dice4 != null && dice5 != null)
         {
@@ -217,9 +220,9 @@ public class GM : MonoBehaviourPunCallbacks
             Score.myCal_sequence();
             if (r_count != 0)
             {
+                allKeep();
                 GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(true);
                 scoreBoard.GetComponent<Button>().interactable = true;
-                rollButton.interactable = true;
                 selec_phase = true;
             }
             else {
@@ -236,7 +239,7 @@ public class GM : MonoBehaviourPunCallbacks
         }
         if (myTurn && timer >= 10.0f) {
             GameObject.Find("Canvas").transform.Find("Timer").gameObject.SetActive(true);
-            GameObject.Find("Canvas").transform.Find("Timer").transform.Find("Timer").GetComponent<Text>().text = $"남은시간 : {30 - (int)timer}";
+            GameObject.Find("Canvas").transform.Find("Timer").transform.Find("Timer").GetComponent<Text>().text = $"남은시간 \n {30 - (int)timer}";
         }
         if (myTurn && timer > 30.0f) {
             timeOver = true;
@@ -314,6 +317,10 @@ public class GM : MonoBehaviourPunCallbacks
             GameObject.Find("Canvas").transform.Find("RollButton").gameObject.SetActive(true);
         }
         //scoreBoard.GetComponent<Button>().interactable = false;
+    }
+    void allKeep() {
+        if (keep[0] && keep[1] && keep[2] && keep[3] && keep[4]) rollButton.interactable = false;
+        else rollButton.interactable = true;
     }
 
     public void leaveRoom() {
