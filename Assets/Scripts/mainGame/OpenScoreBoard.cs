@@ -32,10 +32,12 @@ public class OpenScoreBoard : MonoBehaviour
     {
         if (!PIn)
         {
+        
             rectTransform.anchoredPosition = outside;
         }
         else 
         {
+      
             rectTransform.anchoredPosition = Vector3.zero;
         }
     }

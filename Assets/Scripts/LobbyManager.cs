@@ -16,7 +16,6 @@ using UnityEngine.UI;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     private readonly string gameVersion = "1.0"; // 게임 버전
-
     public Text connectionInfoText; // 네트워크 정보를 표시할 텍스트
 
    // public Text customConnectionText;
@@ -39,14 +38,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public static DatabaseReference reference;
 
     public static FirebaseUser User;
-
     public static int lobbyUser;
     public static int currentUser;
 
     public Text lu;
     public Text cu;
    
-
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start()
     {
@@ -59,7 +56,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         customHost.interactable = false;
         customJoin.interactable = false;
         // 접속을 시도 중임을 텍스트로 표시
-        connectionInfoText.text = "서버에 접속중...";
+        connectionInfoText.text = "server connecting...";
 
         randomOptions = new RoomOptions();
         randomOptions.CustomRoomPropertiesForLobby = new string[2] { "random", "ai" };
@@ -70,21 +67,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         customOptions.CustomRoomPropertiesForLobby = new string[2] { "custom", "ai" };
         customOptions.CustomRoomProperties = new Hashtable() { { "custom", 1 } };
         customOptions.MaxPlayers = 2;
-
-
-
     }
 
     public void Update()
     {
-        
         currentUser = PhotonNetwork.CountOfPlayers;
         cu.text = "    접속자 수 : " + currentUser;
         lobbyUser = PhotonNetwork.CountOfPlayersOnMaster;
         lu.text = "로비 접속자 수 : " + lobbyUser;
     }
-
-
     // 마스터 서버 접속 성공시 자동 실행
     public override void OnConnectedToMaster()
     {
@@ -93,7 +84,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         customHost.interactable = true;
         customJoin.interactable = true;
         // 접속 정보 표시
-        connectionInfoText.text = "온라인!";
+        connectionInfoText.text = "online!";
     }
     // 마스터 서버 접속 실패시 자동 실행
 
@@ -102,7 +93,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 룸 접속 버튼을 비활성화
         joinButton.interactable = false;
         // 접속 정보 표시
-        connectionInfoText.text = "서버와 연결되지 않음\n접속 재시도 중...";
+        connectionInfoText.text = "Connection Lost \n reconnect";
 
         // 마스터 서버로의 재접속 시도
         PhotonNetwork.ConnectUsingSettings();
@@ -120,13 +111,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             // 룸 접속 실행
-            connectionInfoText.text = "랜덤 매칭중...";
+            connectionInfoText.text = "random match";
             PhotonNetwork.JoinRandomRoom(randomOptions.CustomRoomProperties, 2);
         }
         else
         {
             // 마스터 서버에 접속중이 아니라면, 마스터 서버에 접속 시도
-            connectionInfoText.text = "서버와 연결되지 않음\n접속 재시도 중...";
+            connectionInfoText.text = "disconnect";
             // 마스터 서버로의 재접속 시도
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -135,18 +126,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // 접속 상태 표시
-        connectionInfoText.text = "방 생성 중...";
+        connectionInfoText.text = "create room";
         // 최대 2명을 수용 가능한 빈방을 생성
         PhotonNetwork.CreateRoom(null, randomOptions);
     }
 
     public void CustomHost(Button button) {
-
         button.interactable = false;
-        customHostText.text = "방 생성 완료. 상대 기다리는 중 ...";
+        customHostText.text = "joining room";
 
         PhotonNetwork.CreateRoom(customRoomH.text, customOptions);
-
     }
 
     public void CustomConnect(Button button)
@@ -154,7 +143,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 중복 접속 시도를 막기 위해, 접속 버튼 잠시 비활성화
         button.interactable = false;
         customJoinText.text = "방 아이디를 입력하세요...";
-
 
         // 마스터 서버에 접속중이라면
         if (PhotonNetwork.IsConnected)
@@ -191,15 +179,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         GameObject.Find("Canvas").transform.Find("customUIJoin").gameObject.SetActive(false);
     }
 
-
     // 룸에 참가 완료된 경우 자동 실행
     public override void OnJoinedRoom()
     {
         // 접속 상태 표시
         // 모든 룸 참가자들이 Main 씬을 로드하게 
-        connectionInfoText.text = "게임 접속";
-        customHostText.text = "게임 접속";
-        customJoinText.text = "게임 접속";
+        connectionInfoText.text = "join game";
+        customHostText.text = "join game";
+        customJoinText.text = "join game";
         PhotonNetwork.LoadLevel("mainGame");
     }
 }

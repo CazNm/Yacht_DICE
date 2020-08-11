@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
     public static int Dnum4 = DiceNumberTextScript.diceNumbers[3];
     public static int Dnum5 = DiceNumberTextScript.diceNumbers[4];
 
-    public static int[] check = new int[12];
+    public static int[] check = new int[13];
     public static int[] houseChecker = new int[6] { 0, 0, 0, 0, 0, 0 };
 
     static int singlesum;
@@ -61,6 +61,8 @@ public class Score : MonoBehaviour
         {
             check[i] = 0;
         }
+
+        check[12] = 1;
 
         /*
         check[0] = 1;
@@ -310,13 +312,17 @@ public class Score : MonoBehaviour
 
     public static void bounus_sum()
     {
+        GM.scoreRecord[12] = 0;
         for (int i = 0; i < 6; i++)
         {
             if (check[i] == 1) {
+                GM.scoreRecord[12] += GM.scoreRecord[i];
                 sumcheck += 1; 
             }
         }
-        
+
+        GameObject.Find("GameManager").GetComponent<GM>().sendSB(12, GM.scoreRecord[12]);
+
         if (sumcheck == 6)
         {
             sum = singlesum + doublesum + threesum + foursum + fivessum + sixessum;

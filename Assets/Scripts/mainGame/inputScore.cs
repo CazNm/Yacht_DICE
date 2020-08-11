@@ -25,7 +25,7 @@ public class inputScore : MonoBehaviourPun
     void Update()
     {
         rectransform.anchoredPosition = Vector3.zero;
-        if(send && (scoreType == 12 || scoreType == 13 || scoreType == 14))
+        if(send && ( scoreType == 13 || scoreType == 14))
         {
 
             if (GM.scoreRecord[scoreType] == 0)

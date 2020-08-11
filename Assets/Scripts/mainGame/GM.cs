@@ -12,14 +12,15 @@ public class GM : MonoBehaviourPunCallbacks
 {
     public static int playerIndex;
     public static int otherIndex;
-    public GameObject[] dices = new GameObject[5];
+    
+    public static GameObject[] dices = new GameObject[5];
     //public GameObject player;
 
     public static int r_count;
     public static int round;
     public static bool myTurn;
     public static bool p2Turn;
-    public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 90, -90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 0, 90), new Vector3(-90, 0, 0) };
+    public static Vector3[] rotation = { new Vector3(90, 0, 0), new Vector3(0, 0, 90), new Vector3(0, 0, 0), new Vector3(180, 0, 0), new Vector3(0, 90, -90), new Vector3(-90, 0, 90) };
     public static int[] diceScore = { 0, 0, 0, 0, 0 };
     public static int[] scoreRecord = new int[15];
     public static int? [] p2scoreRec = new int? [15];
@@ -113,6 +114,7 @@ public class GM : MonoBehaviourPunCallbacks
       //  Debug.Log(keep[0] + "/" + keep[1] + "/" + keep[2] + "/" + keep[3] + "/" + keep[4] + "/" );
 
         if ( myTurn ) { sendPhase(); }
+
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         timeOut();
 
@@ -178,11 +180,12 @@ public class GM : MonoBehaviourPunCallbacks
             GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(false);
         }
         else {
-            dice1 = GameObject.Find("dice1(Clone)");
-            dice2 = GameObject.Find("dice2(Clone)");
-            dice3 = GameObject.Find("dice3(Clone)");
-            dice4 = GameObject.Find("dice4(Clone)");
-            dice5 = GameObject.Find("dice5(Clone)");
+            Debug.Log($"{dices[0].name}(Clone)");
+            dice1 = GameObject.Find($"{dices[0].name}(Clone)");
+            dice2 = GameObject.Find($"{dices[1].name}(Clone)");
+            dice3 = GameObject.Find($"{dices[2].name}(Clone)");
+            dice4 = GameObject.Find($"{dices[3].name}(Clone)");
+            dice5 = GameObject.Find($"{dices[4].name}(Clone)");
             GameObject.Find("Canvas").transform.Find("NL").gameObject.SetActive(true);
             return; 
         }
@@ -251,7 +254,11 @@ public class GM : MonoBehaviourPunCallbacks
         record_phase = true;
     }
     void spawnDice() {
-       // PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
+        for (int x = 0; x < 5; x++)
+        {
+            dices[x] = GameObject.Find("DiceManager").GetComponent<dice>().dices[x];  
+        }
+        // PhotonNetwork.Instantiate(player.name, Vector3.zero, Quaternion.Euler(0, 0, 0));
         if (!PhotonNetwork.IsMasterClient) { return; }
         for (int x = 0; x < 5; x++) {
             PhotonNetwork.Instantiate(dices[x].name, dices[x].GetComponent<DiceScript>().resultPos, Quaternion.Euler(0, 0, 0));
@@ -316,15 +323,6 @@ public class GM : MonoBehaviourPunCallbacks
         
     }
 
-    void allKeep() {
-        if (keep[0] && keep[1] && keep[2] && keep[3] && keep[4])
-        {
-            rollButton.interactable = false;
-        }
-        else {
-            rollButton.interactable = true;
-        }
-    }
     [PunRPC]
     public void p2LeaveRoom()
     {
@@ -338,7 +336,6 @@ public class GM : MonoBehaviourPunCallbacks
         selec_phase = false;
         start_phase = false;
         rolling_phase = true;
-        
         
         GameObject.Find("Canvas").transform.Find("SelectUI").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("StartUI").gameObject.SetActive(false);
@@ -506,7 +503,7 @@ public class GM : MonoBehaviourPunCallbacks
     [PunRPC]
     public void syncRecord(int[] recordScore) {
         if (myTurn) { return; }
-        for (int x = 0; x < 12; x++) {
+        for (int x = 0; x < 13; x++) {
             GM.scoreRecord[x] = recordScore[x];
         }
     }

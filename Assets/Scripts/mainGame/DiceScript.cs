@@ -138,13 +138,10 @@ public class DiceScript : MonoBehaviourPunCallbacks, IPunObservable {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(rb.useGravity);
-			
 		}
 		else {
-
 			currentPos = (Vector3)stream.ReceiveNext();
 			currentRot =(Quaternion)stream.ReceiveNext();
-			
 		}
     }
 

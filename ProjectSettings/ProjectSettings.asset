@@ -169,8 +169,8 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.cgp.firebaseyachtdice
   buildNumber: {}
-  AndroidBundleVersionCode: 2
-  AndroidMinSdkVersion: 23
+  AndroidBundleVersionCode: 5
+  AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -269,7 +269,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: cd4ceea0518397c419d77f2669294702, type: 3}
+      m_Icon: {fileID: 2800000, guid: b22d8cbeb6633b24d868c688e0c673b2, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
